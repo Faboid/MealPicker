@@ -6,11 +6,12 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPickerLibrary {
+namespace MealPickerLibrary.Queries {
     public static class Connection {
 
         private static HttpClient client;
         private static string apiKey;
+        private static string apiKeySign = "apiKey";
 
         static Connection() {
             client = new HttpClient();
@@ -29,8 +30,16 @@ namespace MealPickerLibrary {
             return product;
         }
 
+        static async Task<T> GetRandomRecipes<T>(int number) where T: class {
+            return await GetRecipeAsync<T>($"random?{apiKeySign}={apiKey}&number={number}");
+        }
+
+        static async Task<T> GetRecipeByID<T>(string ID) where T: class {
+            return await GetRecipeAsync<T>(BuildRequestRecipeByID(ID));
+        }
+
         static string BuildRequestRecipeByID(string ID) {
-            return $"{ID}/information?apiKey={apiKey}&includeNutrition=false";
+            return $"{ID}/information?{apiKeySign}={apiKey}&includeNutrition=false";
         }
 
     }
