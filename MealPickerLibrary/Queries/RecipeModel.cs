@@ -17,8 +17,11 @@ namespace MealPickerLibrary.Queries {
 
         //extra info—requires calling the api for the specific recipe.
         public int ReadyInMinutes { get; set; }
+
+        //authors name
         public string SourceName { get; set; }
         public string SourceUrl { get; set; }
+        public IngredientModel[] extendedIngredients { get; set; }
         public string Summary { get; set; }
 
     }

@@ -31,7 +31,7 @@ namespace MealPickerLibrary.Queries {
         }
 
         static async Task<T> GetRandomRecipes<T>(int number) where T: class {
-            return await GetRecipeAsync<T>($"random?{apiKeySign}={apiKey}&number={number}");
+            return await GetRecipeAsync<T>($"random?{apiKeySign}={apiKey}&number={number}&limitLicense=true");
         }
 
         static async Task<T> GetRecipeByID<T>(string ID) where T: class {
