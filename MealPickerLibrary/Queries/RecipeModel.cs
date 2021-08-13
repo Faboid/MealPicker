@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace MealPickerLibrary.Queries {
     public class RecipeModel {
@@ -14,9 +15,8 @@ namespace MealPickerLibrary.Queries {
         //url to the image
         public string Image { get; set; }
 
-
-        //extra info—requires calling the api for the specific recipe.
         public int ReadyInMinutes { get; set; }
+        public int Servings { get; set; }
 
         //authors name
         public string SourceName { get; set; }

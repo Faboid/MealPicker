@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MealPickerUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MealPicker" Height="700" Width="1200"
         Style="{DynamicResource DarkThemeWindow}"
         >
 
@@ -36,6 +36,7 @@
             />
 
         <Button 
+            x:Name="GetRandomRecipebtn"
             Content="Get Random Recipe"
             Grid.Row="0"
             HorizontalAlignment="Center" 
@@ -43,6 +44,7 @@
             Height="48"
             Width="195"
             Margin="20, 20, 20, 20"
+            Click="GetRandomRecipebtn_Click"
             />
 
         <DockPanel
@@ -52,6 +54,7 @@
             />
 
         <TextBlock 
+            x:Name="RecipeTitleTextBlock"
             Style="{StaticResource Dark}"
             Grid.Row="1"
             Text="Title Here" 
@@ -71,13 +74,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Image
+                x:Name="RecipeImage"
                 Stretch="Uniform"
                 Grid.Column="0"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 />
+
 
             <Grid
                 Grid.Column="1"
@@ -102,6 +107,7 @@
                     />
 
                 <TextBlock
+                    x:Name="ReadyInMinTextBlock"
                     Style="{StaticResource Dark}"
                     Grid.Row="0"
                     Grid.Column="2"
@@ -115,6 +121,7 @@
                     />
 
                 <TextBlock
+                    x:Name="ServingsAmountTextBlock"
                     Style="{StaticResource Dark}"
                     Grid.Row="1"
                     Grid.Column="2"
@@ -128,15 +135,16 @@
                     />
 
                 <DataGrid
+                    x:Name="IngredientsDataGrid"
                     Grid.Row="3"
                     Grid.ColumnSpan="3"
                     BorderThickness="1"
                     BorderBrush="Black"
                     >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Width="*"/>
-                        <DataGridTextColumn Header="Amount" Width="auto"/>
-                        <DataGridTextColumn Header="Unit" Width="auto"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="auto"/>
+                        <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" Width="auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -159,6 +167,7 @@
 
             <!--Summary-->
             <TextBlock
+                x:Name="SummaryTextBlock"
                 Style="{StaticResource Dark}"          
                 Background="#FF272121"
                 Text="Summary"
@@ -169,10 +178,12 @@
                 VerticalAlignment="Center"
                 TextAlignment="Center"
                 Margin="5"
+                TextWrapping="WrapWithOverflow"
                 />
             
             <!--Source/Author Name-->
             <TextBlock
+                x:Name="RecipeAuthorNameTextBlock"
                 Style="{StaticResource Dark}"
                 Text="Recipe Author Name"
                 Grid.Row="1"
@@ -183,14 +194,14 @@
                 />
 
             <!--Source/Author Link-->
-            <TextBlock
-                Style="{StaticResource Dark}"
-                Text="Recipe Link"
+            <Button
+                x:Name="RecipeLinkBtn"
+                Content="Recipe Link"
                 Grid.Row="1"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Margin="5"
+                Margin="0, 0, 5, 0"
                 />
 
         </Grid>
