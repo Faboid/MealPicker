@@ -1,5 +1,6 @@
 ﻿using MealPickerLibrary;
 using MealPickerLibrary.Queries;
+using MealPickerLibrary.Conversions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace MealPickerUI {
             IngredientsDataGrid.ItemsSource = current.extendedIngredients;
 
             //add summary
-            SummaryTextBlock.Text = current.Summary;
+            SummaryTextBlock.Text = HTMLtoPlainText.Convert(current.Summary);
 
             //add authors info
             RecipeAuthorNameTextBlock.Text = current.SourceName;
