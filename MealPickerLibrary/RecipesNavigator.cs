@@ -10,6 +10,7 @@ namespace MealPickerLibrary {
 
         public static RecipeModel CurrentRecipe { get; private set; }
 
+        //todo - start a timer that deletes all cached recipes after an hour to follow spoonacular's TOS
         private static List<RecipeModel> recipes = new List<RecipeModel>();
 
         public static async Task<bool> Next() {
@@ -25,11 +26,27 @@ namespace MealPickerLibrary {
 
             CurrentRecipe = recipes.First();
 
+            if(ValidateValues() is false) {
+                await Next();
+            }
+
             return true;
         }
 
-        private static void Refresh() {
+        private static bool ValidateValues() {
+            bool[] conditions = new bool[] {
+                CurrentRecipe.Id is not null,
+                CurrentRecipe.Title is not null,
+                CurrentRecipe.Image is not null,
+                CurrentRecipe.ReadyInMinutes is not 0,
+                CurrentRecipe.Servings is not 0,
+                CurrentRecipe.SourceName is not null,
+                CurrentRecipe.SourceUrl is not null,
+                CurrentRecipe.extendedIngredients is not null,
+                CurrentRecipe.Summary is not null
+            };
 
+            return conditions.All(x => x is true);
         }
 
     }
