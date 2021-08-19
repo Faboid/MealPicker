@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MealPickerUI {
+namespace MealPickerUI.Windows {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -28,10 +28,17 @@ namespace MealPickerUI {
         RecipeModel current { get => RecipesNavigator.CurrentRecipe; }
 
         private async void GetRandomRecipebtn_Click(object sender, RoutedEventArgs e) {
-            bool result = await RecipesNavigator.Next();
+            
+            try {
 
-            if(result is false) {
-                //tell user something failed
+                bool isLocked = !await RecipesNavigator.Next();
+                if(isLocked) {
+                    return;
+                }
+
+            } catch (System.Net.Http.HttpRequestException ex) {
+                DarkMessageBox.Show("The request has failed!", ex.Message, Dispatcher);
+                return;
             }
 
             //set title

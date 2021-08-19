@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MealPickerLibrary.Queries;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,14 +19,32 @@ namespace MealPickerLibrary.Files {
         /// <summary>
         /// Gets the path to the text file that holds the api key.
         /// </summary>
-        private readonly static string txtFileWithKey = Path.Combine(GetWorkingDirectory(), "KEY.txt");
+        public readonly static string txtFileWithKey = Path.Combine(GetWorkingDirectory(), "KEY.txt");
+
+        /// <summary>
+        /// Checks whether <see cref="txtFileWithKey"/> has been written.
+        /// </summary>
+        /// <param name="checkIfCorrect">Whether to call the API and confirm the functioning of the key.</param>
+        /// <returns><see langword="True"/> if the saved key exists and, if <paramref name="checkIfCorrect"/> is true, if it functions correctly.</returns>
+        public static async Task<bool> Check(bool checkIfCorrect) {
+
+            if(Check() is false) {
+                //if the file has no key, return false
+                return false;
+
+            } else if(checkIfCorrect) {
+                //calls the api to check if it's correct
+                return await Connection.TestKey(Get());
+
+            } else {
+                return true;
+            }
+        }
 
         /// <summary>
         /// Checks whether <see cref="txtFileWithKey"/> has been written.
         /// </summary>
         public static bool Check() {
-            //todo - add a way to check if the key is valid
-
             return string.IsNullOrEmpty(Get()) is false;
         }
 
@@ -45,6 +64,10 @@ namespace MealPickerLibrary.Files {
         /// </summary>
         /// <returns>The API key written in the text file.</returns>
         public static string Get() {
+            if(File.Exists(txtFileWithKey) is false) {
+                return null;
+            }
+
             return File.ReadAllText(txtFileWithKey);
         }
 
