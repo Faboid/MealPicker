@@ -52,11 +52,16 @@ namespace MealPickerLibrary.Files {
         /// Writes <paramref name="key"/> to <see cref="txtFileWithKey"/>.
         /// </summary>
         /// <param name="key">The API key to write.</param>
-        public static void Set(string key) {
-            //todo - add a way to check if the key is valid
+        public static async Task<bool> Set(string key) {
+
+            if(await Connection.TestKey(Get()) is false) {
+                return false;
+            }
 
             //todo - add some kind of cryptography
             File.WriteAllText(txtFileWithKey, key);
+
+            return true;
         }
 
         /// <summary>

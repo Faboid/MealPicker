@@ -24,14 +24,12 @@ namespace MealPickerUI.Windows {
         }
 
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e) {
-            bool result = await Connection.TestKey(API_Key_Textbox.Text);
+            bool result = await API_Key.Set(API_Key_Textbox.Text);
 
             if(result is false) {
                 DarkMessageBox.Show("The key did not work!", $"The given key ({API_Key_Textbox.Text}) failed to connect to the API. Are you sure it's correct?", Dispatcher);
                 return;
             }
-
-            API_Key.Set(API_Key_Textbox.Text);
 
             if(await API_Key.Check(true)) {
 
