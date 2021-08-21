@@ -29,7 +29,6 @@ namespace MealPickerLibrary.Queries {
             try {
                 await CallAPIAsync<ListRecipesResult>($"random?{apiKeySign}={key}&number={1}&limitLicense=true");
             } catch (HttpRequestException ex) {
-                //todo - check what the error message is when the request fails for other reasons(in particular, due to using up all points)
                 if(ex.Message.Contains("Unauthorized")) {
                     return false;
                 }

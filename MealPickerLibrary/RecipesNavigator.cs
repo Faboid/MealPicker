@@ -1,4 +1,5 @@
 ﻿using MealPickerLibrary.Queries;
+using MealPickerLibrary.Generic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace MealPickerLibrary {
 
         public static RecipeModel CurrentRecipe { get; private set; }
 
-        //todo - start a timer that deletes all cached recipes after an hour to follow spoonacular's TOS
-        private static List<RecipeModel> recipes = new List<RecipeModel>();
+        private static TimeoutContainer<RecipeModel> containerRecipes = new TimeoutContainer<RecipeModel>(3600000); //3600000 = 1 hour
 
         private static SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
@@ -23,18 +23,18 @@ namespace MealPickerLibrary {
             }
 
             if(CurrentRecipe is not null) {
-                recipes.Remove(CurrentRecipe);
+                containerRecipes.Content.Remove(CurrentRecipe);
                 CurrentRecipe = null;
             }
 
-            if(recipes.Count is 0) {
+            if(containerRecipes.Content.Count is 0) {
 
                 //call API to refresh count
-                recipes = (await Connection.GetRandomRecipesAsync(150)).Recipes.ToList();
-
+                var recipes = (await Connection.GetRandomRecipesAsync(150)).Recipes.ToList();
+                containerRecipes.SetContent(recipes);
             }
 
-            CurrentRecipe = recipes.First();
+            CurrentRecipe = containerRecipes.Content.First();
 
             semaphore.Release();
 
