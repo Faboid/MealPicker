@@ -1,9 +1,11 @@
-﻿using MealPickerLibrary.Queries;
+﻿using MealPickerLibrary.Conversions;
+using MealPickerLibrary.Queries;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,12 +56,13 @@ namespace MealPickerLibrary.Files {
         /// <param name="key">The API key to write.</param>
         public static async Task<bool> Set(string key) {
 
-            if(await Connection.TestKey(Get()) is false) {
+            if(await Connection.TestKey(key) is false) {
                 return false;
             }
 
-            //todo - add some kind of cryptography
-            File.WriteAllText(txtFileWithKey, key);
+            string encryptedKey = CryptoString.Encrypt(key);
+
+            File.WriteAllText(txtFileWithKey, encryptedKey);
 
             return true;
         }
@@ -73,7 +76,9 @@ namespace MealPickerLibrary.Files {
                 return null;
             }
 
-            return File.ReadAllText(txtFileWithKey);
+            string cipherText = File.ReadAllText(txtFileWithKey);
+
+            return CryptoString.Decrypt(cipherText);
         }
 
     }
