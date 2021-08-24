@@ -34,11 +34,19 @@ namespace MealPickerUI.Windows {
             if(await API_Key.Check(true)) {
 
                 DarkMessageBox.Show("Success!", "The key has been saved successfully.", Dispatcher);
+                LoadMainWindow();
                 this.Close();
             } else {
                 DarkMessageBox.Show("Error!", "Something went wrong.", Dispatcher);
             }
 
         }
+
+        private void LoadMainWindow() {
+            this.Visibility = Visibility.Hidden;
+            MainWindow window = new MainWindow();
+            window.ShowDialog();
+        }
+
     }
 }

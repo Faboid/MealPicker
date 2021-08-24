@@ -15,7 +15,6 @@ namespace MealPickerUI {
     /// </summary>
     public partial class App : Application {
 
-        MainWindow window = new MainWindow();
 
         protected override void OnStartup(StartupEventArgs e) {
             base.OnStartup(e);
@@ -25,16 +24,13 @@ namespace MealPickerUI {
 
             if(API_Key.Check() is false) {
                 KeyArchiver keyArchiver = new KeyArchiver();
-                keyArchiver.Closing += KeyArchiver_Closing;
                 keyArchiver.Show();
-                //window.Visibility = Visibility.Hidden;
+            } else {
+                MainWindow window = new MainWindow();
+                window.Show();
             }
-
-            window.Show();
+            
         }
 
-        private void KeyArchiver_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            window.Visibility = Visibility.Visible;
-        }
     }
 }
