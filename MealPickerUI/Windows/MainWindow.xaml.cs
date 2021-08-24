@@ -2,19 +2,8 @@
 using MealPickerLibrary.Queries;
 using MealPickerLibrary.Conversions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MealPickerUI.Windows {
     /// <summary>
@@ -24,8 +13,6 @@ namespace MealPickerUI.Windows {
         public MainWindow() {
             InitializeComponent();
         }
-
-        RecipeModel current { get => RecipesNavigator.CurrentRecipe; }
 
         private async void GetRandomRecipebtn_Click(object sender, RoutedEventArgs e) {
             
@@ -41,33 +28,45 @@ namespace MealPickerUI.Windows {
                 return;
             }
 
+            LoadRecipe(RecipesNavigator.CurrentRecipe);
+        }
+
+        private void LoadRecipe(RecipeModel recipe) {
             //set title
-            RecipeTitleTextBlock.Text = current.Title;
+            RecipeTitleTextBlock.Text = recipe.Title;
 
             //set image
             var image = new BitmapImage();
             image.BeginInit();
-            image.UriSource = new Uri(current.Image);
+            image.UriSource = new Uri(recipe.Image);
             image.EndInit();
             RecipeImage.Source = image;
 
             //add specific info
-            ReadyInMinTextBlock.Text = current.ReadyInMinutes.ToString();
-            ServingsAmountTextBlock.Text = current.Servings.ToString();
+            ReadyInMinTextBlock.Text = recipe.ReadyInMinutes.ToString();
+            ServingsAmountTextBlock.Text = recipe.Servings.ToString();
 
             //refresh ingredients list
             IngredientsDataGrid.ItemsSource = null;
-            IngredientsDataGrid.ItemsSource = current.extendedIngredients;
+            IngredientsDataGrid.ItemsSource = recipe.extendedIngredients;
 
             //add summary
-            SummaryTextBlock.Text = HTMLtoPlainText.Convert(current.Summary);
+            SummaryTextBlock.Text = HTMLtoPlainText.Convert(recipe.Summary);
 
             //add authors info
-            RecipeAuthorNameTextBlock.Text = current.SourceName;
-            RecipeLinkBtn.Content = current.SourceUrl;
+            RecipeAuthorNameTextBlock.Text = recipe.SourceName;
+            RecipeLinkBtn.Content = recipe.SourceUrl;
         }
 
-
-
+        private void RecipeLinkBtn_Click(object sender, RoutedEventArgs e) {
+            try {
+                Uri link = new Uri(RecipeLinkBtn.Content as string);
+                System.Diagnostics.Process.Start("explorer", link.AbsoluteUri);
+            } catch (UriFormatException) {
+                DarkMessageBox.Show("Error!", "The button doesn't hold a valid link.", Dispatcher);
+            } catch (Exception ex) {
+                DarkMessageBox.Show("Error!", ex.Message, Dispatcher);
+            }
+        }
     }
 }
