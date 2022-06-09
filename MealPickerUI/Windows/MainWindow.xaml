@@ -8,6 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Title="MealPicker" Height="700" Width="1200"
         Style="{DynamicResource DarkThemeWindow}"
+        Icon="/Resources/HotDog.ico"
         >
 
     <Window.Resources>

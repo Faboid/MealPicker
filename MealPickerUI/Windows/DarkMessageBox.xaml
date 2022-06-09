@@ -11,6 +11,7 @@
         MinHeight="230" MinWidth="280"
         Height="auto" Width="auto"
         Style="{DynamicResource DarkThemeWindow}"
+        Icon="/Resources/HotDog.ico"
         >
 
     <Window.Resources>

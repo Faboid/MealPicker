@@ -1,13 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>Resources\HotDog.ico</ApplicationIcon>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MealPickerLibrary\MealPickerLibrary.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="Windows\HotDog.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\MealPickerLibrary\MealPickerLibrary.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Resources\HotDog.ico" />
+    </ItemGroup>
 
 </Project>

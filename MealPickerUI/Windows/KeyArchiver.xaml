@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="Key Archiver" Height="250" Width="800"
         WindowStartupLocation="CenterScreen"
-        Style="{DynamicResource DarkThemeWindow}">
+        Style="{DynamicResource DarkThemeWindow}"
+        Icon="/Resources/HotDog.ico"
+        >
 
     <Window.Resources>
         <ResourceDictionary>
