@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPicker.Encryption", "Me
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPicker.Encryption.Tests", "MealPicker.Encryption.Tests\MealPicker.Encryption.Tests.csproj", "{0BBA2557-5464-461C-B9D0-206B72FDF15B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPicker.Utils", "MealPicker.Utils\MealPicker.Utils.csproj", "{9420E763-849B-4952-BAF0-57C95A475C2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPicker.Utils.Tests", "MealPicker.Utils.Tests\MealPicker.Utils.Tests.csproj", "{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPicker.TestUtils", "MealPicker.TestUtils\MealPicker.TestUtils.csproj", "{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +45,18 @@ Global
 		{0BBA2557-5464-461C-B9D0-206B72FDF15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BBA2557-5464-461C-B9D0-206B72FDF15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BBA2557-5464-461C-B9D0-206B72FDF15B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9420E763-849B-4952-BAF0-57C95A475C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9420E763-849B-4952-BAF0-57C95A475C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9420E763-849B-4952-BAF0-57C95A475C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9420E763-849B-4952-BAF0-57C95A475C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
