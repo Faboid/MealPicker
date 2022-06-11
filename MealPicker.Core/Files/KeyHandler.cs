@@ -18,9 +18,9 @@ public class KeyHandler {
         path = customPath;
     }
 
-    public async Task<Option<Connection, KeyError>> TrySet(string key) {
-        var connection = await Connection.CreateConnectionAsync(new (key));
-        var output = connection.Match<Option<Connection, KeyError>>(
+    public async Task<Option<ConnectionService, KeyError>> TrySet(string key) {
+        var connection = await ConnectionService.CreateConnectionAsync(new (key));
+        var output = connection.Match<Option<ConnectionService, KeyError>>(
             some => throw new Exception(),
             error => ConvertHttpStatusToKeyError(error.StatusCode),
             () => KeyError.Undefined
@@ -34,7 +34,7 @@ public class KeyHandler {
         return output;
     }
 
-    public async Task<Option<Connection, KeyError>> TryGet() {
+    public async Task<Option<ConnectionService, KeyError>> TryGet() {
         if(File.Exists(path) == false) {
             return KeyError.MissingKey;
         }
@@ -46,9 +46,9 @@ public class KeyHandler {
 
         try {
             var key = cryptoService.Decrypt(cipher);
-            var connectionOption = await Connection.CreateConnectionAsync(new(key)).ConfigureAwait(false);
+            var connectionOption = await ConnectionService.CreateConnectionAsync(new(key)).ConfigureAwait(false);
 
-            return connectionOption.Match<Option<Connection, KeyError>>(
+            return connectionOption.Match<Option<ConnectionService, KeyError>>(
                     some => some,
                     error => ConvertHttpStatusToKeyError(error.StatusCode),
                     () => KeyError.Undefined
