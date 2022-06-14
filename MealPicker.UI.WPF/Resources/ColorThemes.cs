@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MealPicker.UI.WPF.Resources.Colors.Themes;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
 namespace MealPicker.UI.WPF.Resources {
+
     public partial class ColorThemes : ResourceDictionary, IColorThemePainter {
 
-        public static IColorThemePainter Painter => brushesDictionary.Value;
+        public static IColorThemePainter Painter => BrushesDictionary.Value;
 
-        private static Lazy<ColorThemes> brushesDictionary { get; } = new Lazy<ColorThemes>(() => new(GetResourceDictionary));
+        private static Lazy<ColorThemes> BrushesDictionary { get; } = new Lazy<ColorThemes>(() => new(GetResourceDictionary));
 
         private static ResourceDictionary GetResourceDictionary => Application
             .Current
@@ -38,7 +37,7 @@ namespace MealPicker.UI.WPF.Resources {
         }
 
         private IColorTheme _theme;
-        private ResourceDictionary dict;
+        private readonly ResourceDictionary dict;
 
         [MemberNotNull(nameof(_theme))]
         public void Apply(ColorTheme theme) {
@@ -50,8 +49,8 @@ namespace MealPicker.UI.WPF.Resources {
 
             OnChangedTheme?.Invoke(this, _theme);
 
-            dict["LightText"] = new SolidColorBrush(_theme.LightText);
-            dict["DeepestBG"] = new SolidColorBrush(_theme.DeepestBG);
+            dict[LightText] = new SolidColorBrush(_theme.LightText);
+            dict[DeepestBG] = new SolidColorBrush(_theme.DeepestBG);
         }
 
         public event EventHandler<IColorTheme>? OnChangedTheme;
@@ -65,67 +64,6 @@ namespace MealPicker.UI.WPF.Resources {
     public enum ColorTheme {
         Dark,
         Light
-    }
-
-    public class DarkTheme : IColorTheme {
-        public Color DeepestBG => "#FF272121".ToColor();
-        public Color DeepBG => throw new NotImplementedException();
-        public Color ForeBG => throw new NotImplementedException();
-        public Color LightText => "FFFFFFFF".ToColor();
-
-    }
-
-    public class LightTheme : IColorTheme {
-        public Color DeepestBG => "FFFFFFFF".ToColor();
-        public Color DeepBG => throw new NotImplementedException();
-        public Color ForeBG => throw new NotImplementedException();
-        public Color LightText => "FF272121".ToColor();
-
-    }
-
-    public interface IColorTheme {
-
-        //temp names
-        Color DeepestBG { get; }
-        Color DeepBG { get; }
-        Color ForeBG { get; }
-        Color LightText { get; }
-
-    }
-
-    internal static class Extensions {
-
-        //todo - test this method
-        public static Color ToColor(this string hex) {
-
-            if(hex[0] == '#') {
-                hex = hex[1..];
-            }
-
-            if(hex.Length == 6) {
-                var color = Color
-                    .FromRgb(
-                        Convert.ToByte(hex.Substring(0, 2), 16),
-                        Convert.ToByte(hex.Substring(2, 2), 16),
-                        Convert.ToByte(hex.Substring(4, 2), 16)
-                    );
-                return color;
-            }
-
-            if(hex.Length == 8) {
-                var color = Color
-                    .FromArgb(
-                        Convert.ToByte(hex.Substring(0, 2), 16),
-                        Convert.ToByte(hex.Substring(2, 2), 16),
-                        Convert.ToByte(hex.Substring(4, 2), 16),
-                        Convert.ToByte(hex.Substring(6, 2), 16)
-                    );
-                return color;
-            }
-
-            throw new ArgumentException($"The given hex ({hex}) is not valid.", nameof(hex));
-        }
-
     }
 
 }
