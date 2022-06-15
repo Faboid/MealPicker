@@ -11,8 +11,6 @@
         Height="450" Width="800">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="Button_Text" Color="White" Opacity="67"/>
-        <SolidColorBrush x:Key="Button_BG" Color="DarkGray"/>
         <SolidColorBrush x:Key="TitleText" Color="White" Opacity="80"/>
         <SolidColorBrush x:Key="WindowBorder" Color="Black"/>
         <SolidColorBrush x:Key="WindowBG" Color="#FF121212"/>
@@ -63,8 +61,6 @@
                 WindowChrome.IsHitTestVisibleInChrome="True"
                 Content="—"
                 Grid.Column="1" 
-                Background="{DynamicResource Button_BG}"
-                Foreground="{DynamicResource Button_Text}"
                 />
             
             <Button 
@@ -73,8 +69,6 @@
                 WindowChrome.IsHitTestVisibleInChrome="True"
                 Content="▢"
                 Grid.Column="2"
-                Background="{DynamicResource Button_BG}"
-                Foreground="{DynamicResource Button_Text}"
                 />
             
             <Button 
@@ -82,9 +76,7 @@
                 Click="CloseButton_Click"
                 WindowChrome.IsHitTestVisibleInChrome="True"
                 Content="✖"
-                Grid.Column="3"                    
-                Background="{DynamicResource Button_BG}"
-                Foreground="{DynamicResource Button_Text}"
+                Grid.Column="3"
                 />
 
         </Grid>

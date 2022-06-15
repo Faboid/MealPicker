@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="ColorThemes" Source="pack://application:,,,/Resources/ColorThemes.xaml"/>
+                <ResourceDictionary x:Name="DefaultButton" Source="pack://application:,,,/Styles/ButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
