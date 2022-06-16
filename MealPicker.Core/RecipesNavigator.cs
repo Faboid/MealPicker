@@ -56,7 +56,7 @@ public class RecipesNavigator {
             recipe.Servings is not 0,
             recipe.SourceName is not null,
             recipe.SourceUrl is not null,
-            recipe.extendedIngredients is not null,
+            recipe.ExtendedIngredients is not null,
             recipe.Summary is not null
         };
 

@@ -1,20 +1,20 @@
-﻿namespace MealPicker.Core.Models {
-    public class RecipeModel {
+﻿namespace MealPicker.Core.Models; 
 
-        public string Id { get; set; }
-        public string Title { get; set; }
+public class RecipeModel {
 
-        //url to the image
-        public string Image { get; set; }
+    public string Id { get; set; }
+    public string Title { get; set; }
 
-        public int ReadyInMinutes { get; set; }
-        public int Servings { get; set; }
+    //url to the image
+    public string Image { get; set; }
 
-        //authors name
-        public string SourceName { get; set; }
-        public string SourceUrl { get; set; }
-        public IngredientModel[] extendedIngredients { get; set; }
-        public string Summary { get; set; }
+    public int ReadyInMinutes { get; set; }
+    public int Servings { get; set; }
 
-    }
+    //authors name
+    public string SourceName { get; set; }
+    public string SourceUrl { get; set; }
+    public IngredientModel[] ExtendedIngredients { get; set; }
+    public string Summary { get; set; }
+
 }
