@@ -8,12 +8,12 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="Background" Color="DarkGray"/>
-        <SolidColorBrush x:Key="TextBlock_BG" Color="Gray"/>
+        <SolidColorBrush x:Key="Background" Color="#FF272121"/>
+        <SolidColorBrush x:Key="TextBlock_BG" Color="Black" Opacity="0.50"/>
         <SolidColorBrush x:Key="TextBlock_Text" Color="White" Opacity="0.67"/>
     </UserControl.Resources>
     
-    <Grid>
+    <Grid Background="{DynamicResource Background}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
