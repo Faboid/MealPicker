@@ -29,7 +29,7 @@ public class RecipesNavigator {
     private async Task<Option<RecipeModel>> NoLock_NextAsync() {
 
         if(containerRecipes.Count == 0) {
-            var recipes = await connection.GetRandomRecipesAsync(150);
+            var recipes = await connection.GetRandomRecipesAsync(100);
             containerRecipes.Renew(recipes.Or(new()).Recipes.ToList());
         }
 
