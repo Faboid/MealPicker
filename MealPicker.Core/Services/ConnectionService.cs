@@ -29,8 +29,10 @@ public partial class ConnectionService {
         if(response.IsSuccessStatusCode == false) {
             return new IConnectionService.FailResult(response.StatusCode, response.ReasonPhrase);
         }
+
+        JsonSerializerOptions options = new() { PropertyNameCaseInsensitive = true};
         var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-        return (await JsonSerializer.DeserializeAsync<T>(stream).ConfigureAwait(false))!;
+        return (await JsonSerializer.DeserializeAsync<T>(stream, options).ConfigureAwait(false)) ?? Option.None<T, IConnectionService.FailResult>();
     }
 
     //todo - extract this to a factory class
