@@ -55,6 +55,8 @@
         </Grid>
 
         <views:RecipeView
+            BorderBrush="Black"
+            BorderThickness="2"
             x:Name="RecipeView"
             Grid.Row="1"
             Grid.Column="1"/>
