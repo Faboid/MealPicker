@@ -101,6 +101,7 @@
         <TextBox 
             x:Name="SummaryTextBox"
             Text="Summary"
+            TextWrapping="Wrap"
             VerticalContentAlignment="Center"
             TextAlignment="Center"
             Foreground="{DynamicResource TextBlock_Text}"
