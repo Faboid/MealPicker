@@ -25,8 +25,8 @@ internal class TimeoutCollection<T> : IDisposable {
         this.recipes?.Clear();
         timer?.Dispose();
         
-        this.recipes = recipes;
         timer = new Timer(Reset, null, TimeSpan.Zero, timeout);
+        this.recipes = recipes;
     }
 
     public Option<T> Next() {
