@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MealPicker.UI.WPF.Models {
     internal class RecipeModel {
 
-        public RecipeModel(string id, string title, string image, int readyInMinutes, int servings, string sourceName, string sourceUrl, IngredientModel[] extendedIngredients, string summary) {
+        public RecipeModel(int id, string title, string image, int readyInMinutes, int servings, string sourceName, string sourceUrl, IngredientModel[] extendedIngredients, string summary) {
             Id = id;
             Title = title;
             Image = image;
@@ -31,7 +31,7 @@ namespace MealPicker.UI.WPF.Models {
             Summary = recipe.Summary;
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
 
         //url to the image

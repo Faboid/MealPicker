@@ -49,7 +49,6 @@ public class RecipesNavigator {
         }
         
         bool[] conditions = new bool[] {
-            recipe.Id is not null,
             recipe.Title is not null,
             recipe.Image is not null,
             recipe.ReadyInMinutes is not 0,
