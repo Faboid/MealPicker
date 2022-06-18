@@ -23,9 +23,9 @@ internal class TimeoutCollection<T> : IDisposable {
     [MemberNotNull(nameof(timer), nameof(recipes))]
     public void Renew(List<T> recipes) {
         this.recipes?.Clear();
-        timer?.Dispose();
-        
-        timer = new Timer(Reset, null, TimeSpan.Zero, timeout);
+        timer?.Change(timeout, TimeSpan.Zero);
+
+        timer ??= new Timer(Reset, null, timeout, TimeSpan.Zero);
         this.recipes = recipes;
     }
 
