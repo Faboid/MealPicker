@@ -8,5 +8,53 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="KeyHandlerPage">
 
+    <Page.Resources>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="Black"/>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        
+        <Frame
+            x:Name="PageContainer"
+            Grid.Row="0"
+            />
+
+        <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button
+                x:Name="ConfirmButton"
+                Click="ConfirmButton_Click"
+                Grid.Row="1"
+                Grid.Column="1"
+                >
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <Viewbox>
+                            <TextBlock>Confirm</TextBlock>
+                        </Viewbox>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+
+        </Grid>
+
+    </Grid>
 
 </Page>
