@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="TextBrush" Color="White" Opacity="0.67"/>
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#443737"/>
+    <SolidColorBrush x:Key="TextBox.MouseOver.BorderBrush" Color="#222831"/>
+    <SolidColorBrush x:Key="TextBox.KeyBoardFocus.BorderBrush" Color="Black"/>
+
+    <Style TargetType="TextBox">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="2" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                SnapsToDevicePixels="True"
+                                >
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" Value="{DynamicResource TextBox.KeyBoardFocus.BorderBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" Value="{DynamicResource TextBox.MouseOver.BorderBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>
