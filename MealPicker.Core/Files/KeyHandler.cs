@@ -8,6 +8,24 @@ namespace MealPicker.Core.Files;
 
 public class KeyHandler : IDisposable {
 
+    /// <summary>
+    /// Checks if the default file exists and has a string that resembles a key.
+    /// <br/>Note: this returns <see langword="true"/> if the key might exist. It doesn't necessarily mean it's a valid key.
+    /// </summary>
+    /// <returns></returns>
+    public static bool KeyMightExist() {
+        var path = PathBuilder.GetKeyPath;
+        if(!File.Exists(path)) {
+            return false;
+        }
+
+        if(string.IsNullOrWhiteSpace(File.ReadAllText(path))) {
+            return false;
+        }
+
+        return true;
+    }
+
     private bool isDisposed = false;
     readonly ICryptoService cryptoService;
     readonly string path;
