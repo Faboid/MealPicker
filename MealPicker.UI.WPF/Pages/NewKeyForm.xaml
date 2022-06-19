@@ -11,14 +11,8 @@
     <Page.Resources>
         <SolidColorBrush x:Key="Text" Color="White" Opacity="0.67"/>
     </Page.Resources>
-    
-    <Grid>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10"/>
-        </Grid.ColumnDefinitions>
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -30,7 +24,7 @@
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="1" Grid.Column="1">
+        <DockPanel Grid.Row="1">
             <TextBlock 
                 DockPanel.Dock="Top"
                 Margin="0, 0, 0, 5"
@@ -46,7 +40,7 @@
                 />
         </DockPanel>
 
-        <DockPanel Grid.Row="3" Grid.Column="1">
+        <DockPanel Grid.Row="3">
             <TextBlock 
                 DockPanel.Dock="Top"
                 Margin="0, 0, 0, 5"
@@ -62,7 +56,7 @@
                 />
         </DockPanel>
 
-        <DockPanel Grid.Row="5" Grid.Column="1">
+        <DockPanel Grid.Row="5">
             <TextBlock 
                 DockPanel.Dock="Top"
                 Margin="0, 0, 0, 5"
