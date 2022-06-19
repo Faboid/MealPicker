@@ -1,6 +1,8 @@
-﻿using MealPicker.Core.Services;
+﻿using MealPicker.Core.Files;
+using MealPicker.Core.Services;
 using MealPicker.UI.WPF.Pages.Interface;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,13 +12,35 @@ namespace MealPicker.UI.WPF.Pages {
     /// </summary>
     public partial class KeyHandlerPage : Page {
 
-        private readonly IForm current;
+        private IForm current;
         public event EventHandler<ConnectionService>? CloseAndReturn;
 
         public KeyHandlerPage() {
             InitializeComponent();
-            
-            //todo - add a check on whether the api key exists
+
+            if(!KeyHandler.KeyMightExist()) {
+                NewKeyFormHandler();
+                return;
+            }
+
+            var form = new InsertPasswordForm();
+            form.OnMissingKey += Form_OnMissingKey;
+            form.OnExpiredKey += Form_OnExpiredKey;
+
+            current = form;
+            PageContainer.Navigate(current);
+        }
+
+        private void Form_OnExpiredKey(object? sender, EventArgs e) {
+            NewKeyFormHandler();
+        }
+
+        private void Form_OnMissingKey(object? sender, EventArgs e) {
+            NewKeyFormHandler();
+        }
+
+        [MemberNotNull(nameof(current))]
+        private void NewKeyFormHandler() {
             //NewKeyForm will be used then no apikey is saved
             current = new NewKeyForm();
             PageContainer.Navigate(current);
