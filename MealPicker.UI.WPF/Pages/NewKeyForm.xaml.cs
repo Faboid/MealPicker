@@ -1,4 +1,6 @@
-﻿using MealPicker.Core.Services;
+﻿using MealPicker.Core.Files;
+using MealPicker.Core.Services;
+using MealPicker.Encryption;
 using MealPicker.UI.WPF.Pages.Interface;
 using MealPicker.Utils;
 using System.Net;
@@ -16,36 +18,28 @@ namespace MealPicker.UI.WPF.Pages {
 
         public async Task<Option<ConnectionService>> ConfirmAsync() {
 
-            string password = PasswordTextBox.Text;
-
             //todo - implement error message
-            if(password != ConfirmPasswordTextBox.Text) {
+            if(PasswordTextBox.Text != ConfirmPasswordTextBox.Text) {
                 return Option.None<ConnectionService>();
             }
 
-            API_Key key = new(APIKeyTextBox.Text);
-            var result = await ConnectionService.CreateConnectionAsync(key);
+            CryptoService cryptoService = new(PasswordTextBox.Text.ToCharArray());
+            using KeyHandler handler = new(cryptoService);
+            var result = await handler.TrySet(APIKeyTextBox.Text);
 
             return result
                 .Match(
-                    some => SaveAndReturnConnection(key, password, some),
+                    some => some,
                     error => DisplayErrors(error),
                     () => Option.None<ConnectionService>()
                 );
         }
 
-        private Option<ConnectionService> SaveAndReturnConnection(API_Key key, string password, ConnectionService connection) {
+        private Option<ConnectionService> DisplayErrors(KeyHandler.KeyError failResult) {
 
-            //todo - save the key to file
-
-            return connection;
-        }
-
-        private Option<ConnectionService> DisplayErrors(IConnectionService.FailResult failResult) {
-
-            var stuff = failResult.StatusCode switch {
-                HttpStatusCode.GatewayTimeout => "Failed to connect to the server.",
-                HttpStatusCode.Unauthorized => "The given key is not valid.",
+            var stuff = failResult switch {
+                KeyHandler.KeyError.Timeout => "The key check has timed out.",
+                KeyHandler.KeyError.InvalidOrExpiredKey => "The given key is invalid.",
                 _ => "The verification process has failed for an unknown reason. Please check everything is correct and retry again."
             };
 
