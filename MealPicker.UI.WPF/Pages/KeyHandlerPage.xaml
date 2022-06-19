@@ -27,6 +27,7 @@
         
         <Frame
             x:Name="PageContainer"
+            NavigationUIVisibility="Hidden"
             Grid.Row="0"
             Grid.Column="1"
             />

@@ -86,6 +86,7 @@
         <!--Page Container-->
         <Frame 
             x:Name="PageContainer"
+            NavigationUIVisibility="Hidden"
             Grid.Row="2" 
             Grid.Column="1" 
             Background="{DynamicResource WindowBG}"/>
