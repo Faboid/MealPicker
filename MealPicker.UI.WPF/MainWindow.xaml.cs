@@ -1,12 +1,6 @@
 ﻿using MealPicker.Core;
 using MealPicker.Core.Services;
 using MealPicker.UI.WPF.Pages;
-using MealPicker.UI.WPF.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MealPicker.UI.WPF {
@@ -18,8 +12,13 @@ namespace MealPicker.UI.WPF {
             InitializeComponent();
 
             KeyHandlerPage page = new();
+            page.OnSendMessage += Page_OnSendMessage;
             page.CloseAndReturn += OnConnectionObtained;
             PageContainer.Navigate(page);
+        }
+
+        private void Page_OnSendMessage(object? sender, string e) {
+            ShowMessageBox(e);
         }
 
         private void OnConnectionObtained(object? sender, ConnectionService e) {
@@ -28,6 +27,16 @@ namespace MealPicker.UI.WPF {
                 RecipePage page = new(nav);
                 PageContainer.Navigate(page);
             });
+        }
+
+        private void ShowMessageBox(string message) {
+            MessageBoxMessageTextBlock.Text = message;
+            MessageBox.Visibility = Visibility.Visible;
+        }
+
+        private void MessageBoxOkButton_Click(object sender, RoutedEventArgs e) {
+            MessageBoxMessageTextBlock.Text = "";
+            MessageBox.Visibility = Visibility.Hidden;
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e) {
@@ -45,5 +54,6 @@ namespace MealPicker.UI.WPF {
         private void CloseButton_Click(object sender, RoutedEventArgs e) {
             Close();
         }
+
     }
 }

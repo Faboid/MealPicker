@@ -16,6 +16,7 @@ public partial class InsertPasswordForm : Page, IForm {
 
     public event EventHandler? OnMissingKey;
     public event EventHandler? OnExpiredKey;
+    public event EventHandler<string>? OnSendMessage;
 
     public InsertPasswordForm() {
         InitializeComponent();
@@ -37,22 +38,21 @@ public partial class InsertPasswordForm : Page, IForm {
 
         if(failResult == KeyHandler.KeyError.MissingKey) {
             OnMissingKey?.Invoke(this, EventArgs.Empty);
+            return Option.None<ConnectionService>();
         }
 
         if(failResult == KeyHandler.KeyError.InvalidOrExpiredKey) {
             OnExpiredKey?.Invoke(this, EventArgs.Empty);
+            return Option.None<ConnectionService>();
         }
 
-        var stuff = failResult switch {
+        var errorMessage = failResult switch {
             KeyHandler.KeyError.Timeout => "The key check has timed out.",
-            KeyHandler.KeyError.InvalidOrExpiredKey => "The given key has expired.",
             KeyHandler.KeyError.WrongPassword => "Wrong password.",
-            KeyHandler.KeyError.MissingKey => "The key is missing.",
             _ => "The verification process has failed for an unknown reason. Please check everything is correct and retry again."
         };
 
-        //todo - display the error
-
+        OnSendMessage?.Invoke(this, errorMessage);
         return Option.None<ConnectionService>();
     }
 

@@ -3,7 +3,7 @@ using MealPicker.Core.Services;
 using MealPicker.Encryption;
 using MealPicker.UI.WPF.Pages.Interface;
 using MealPicker.Utils;
-using System.Net;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -12,6 +12,9 @@ namespace MealPicker.UI.WPF.Pages {
     /// Interaction logic for NewKeyForm.xaml
     /// </summary>
     public partial class NewKeyForm : Page, IForm {
+
+        public event EventHandler<string>? OnSendMessage;
+
         public NewKeyForm() {
             InitializeComponent();
         }
@@ -20,6 +23,7 @@ namespace MealPicker.UI.WPF.Pages {
 
             //todo - implement error message
             if(PasswordTextBox.Text != ConfirmPasswordTextBox.Text) {
+                OnSendMessage?.Invoke(this, "The passwords must be equal.");
                 return Option.None<ConnectionService>();
             }
 
@@ -37,13 +41,13 @@ namespace MealPicker.UI.WPF.Pages {
 
         private Option<ConnectionService> DisplayErrors(KeyHandler.KeyError failResult) {
 
-            var stuff = failResult switch {
+            var errorMessage = failResult switch {
                 KeyHandler.KeyError.Timeout => "The key check has timed out.",
                 KeyHandler.KeyError.InvalidOrExpiredKey => "The given key is invalid.",
                 _ => "The verification process has failed for an unknown reason. Please check everything is correct and retry again."
             };
 
-            //todo - display the error
+            OnSendMessage?.Invoke(this, errorMessage);
 
             return Option.None<ConnectionService>();
         }

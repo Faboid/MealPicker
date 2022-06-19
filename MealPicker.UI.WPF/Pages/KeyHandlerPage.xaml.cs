@@ -12,7 +12,10 @@ namespace MealPicker.UI.WPF.Pages {
     /// </summary>
     public partial class KeyHandlerPage : Page {
 
+        //todo - introduct disposing protocol for subscribed events
+
         private IForm current;
+        public event EventHandler<string>? OnSendMessage;
         public event EventHandler<ConnectionService>? CloseAndReturn;
 
         public KeyHandlerPage() {
@@ -24,6 +27,7 @@ namespace MealPicker.UI.WPF.Pages {
             }
 
             var form = new InsertPasswordForm();
+            form.OnSendMessage += (a, b) => OnSendMessage?.Invoke(a, b);
             form.OnMissingKey += Form_OnMissingKey;
             form.OnExpiredKey += Form_OnExpiredKey;
 
@@ -32,17 +36,20 @@ namespace MealPicker.UI.WPF.Pages {
         }
 
         private void Form_OnExpiredKey(object? sender, EventArgs e) {
+            OnSendMessage?.Invoke(this, "The previously given key has expired. Please insert the updated one.");
             NewKeyFormHandler();
         }
 
         private void Form_OnMissingKey(object? sender, EventArgs e) {
+            OnSendMessage?.Invoke(this, "The key given previously is missing. Please insert it once more.");
             NewKeyFormHandler();
         }
 
         [MemberNotNull(nameof(current))]
         private void NewKeyFormHandler() {
-            //NewKeyForm will be used then no apikey is saved
-            current = new NewKeyForm();
+            var form = new NewKeyForm();
+            form.OnSendMessage += (a, b) => OnSendMessage?.Invoke(a, b);
+            current = form;
             PageContainer.Navigate(current);
         }
 

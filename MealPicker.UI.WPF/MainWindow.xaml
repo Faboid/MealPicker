@@ -11,9 +11,11 @@
         Height="450" Width="800">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="TitleText" Color="White" Opacity="80"/>
+        <SolidColorBrush x:Key="TitleText" Color="White" Opacity="0.90"/>
+        <SolidColorBrush x:Key="TextBrush" Color="White" Opacity="0.67"/>
         <SolidColorBrush x:Key="WindowBorder" Color="Black"/>
         <SolidColorBrush x:Key="WindowBG" Color="#FF121212"/>
+        <SolidColorBrush x:Key="MessageBoxBG" Color="#FF272121"/>
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
@@ -87,6 +89,69 @@
             Grid.Row="2" 
             Grid.Column="1" 
             Background="{DynamicResource WindowBG}"/>
+
+        <Grid 
+            Grid.Row="2" 
+            Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="120" Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="100" Width="1*"/>
+                <ColumnDefinition MinWidth="200" Width="2*"/>
+                <ColumnDefinition MinWidth="20" Width="1.01*" MaxWidth="50"/>
+            </Grid.ColumnDefinitions>
+
+            <Border 
+                x:Name="MessageBox"
+                Visibility="Hidden"
+                BorderBrush="Black"
+                Background="{DynamicResource MessageBoxBG}"
+                BorderThickness="3, 0, 3, 3"
+                Grid.Row="0" 
+                Grid.Column="1"
+                >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="10" Height="*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition MinHeight="40" Height="2*"/>
+                        <RowDefinition MinHeight="5" Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="10" Width="*" MaxWidth="30"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition MinWidth="10" Width="*" MaxWidth="30"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        x:Name="MessageBoxMessageTextBlock"
+                        Foreground="{DynamicResource TextBrush}"
+                        VerticalAlignment="Center"
+                        TextWrapping="Wrap"
+                        Margin="0, 0, 0, 10"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        />
+
+                    <Button 
+                        x:Name="MessageBoxOkButton"
+                        Click="MessageBoxOkButton_Click"
+                        Content="Ok"
+                        Margin="10"
+                        Width="80"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        />
+
+                </Grid>
+            </Border>
+        </Grid>
 
     </Grid>
 </Window>
