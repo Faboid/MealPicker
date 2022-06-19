@@ -82,7 +82,11 @@
         </Grid>
         
         <!--Page Container-->
-        <Frame Grid.Row="2" Grid.Column="1" Background="{DynamicResource WindowBG}"/>
+        <Frame 
+            x:Name="PageContainer"
+            Grid.Row="2" 
+            Grid.Column="1" 
+            Background="{DynamicResource WindowBG}"/>
 
     </Grid>
 </Window>

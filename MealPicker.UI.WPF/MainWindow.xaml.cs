@@ -1,18 +1,13 @@
-﻿using MealPicker.UI.WPF.Resources;
+﻿using MealPicker.Core;
+using MealPicker.Core.Services;
+using MealPicker.UI.WPF.Pages;
+using MealPicker.UI.WPF.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MealPicker.UI.WPF {
     /// <summary>
@@ -21,6 +16,18 @@ namespace MealPicker.UI.WPF {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+
+            KeyHandlerPage page = new();
+            page.CloseAndReturn += OnConnectionObtained;
+            PageContainer.Navigate(page);
+        }
+
+        private void OnConnectionObtained(object? sender, ConnectionService e) {
+            RecipesNavigator nav = new(e);
+            Dispatcher.Invoke(() => {
+                RecipePage page = new(nav);
+                PageContainer.Navigate(page);
+            });
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e) {
