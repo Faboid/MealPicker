@@ -6,8 +6,9 @@ using System.Security.Cryptography;
 
 namespace MealPicker.Core.Files; 
 
-public class KeyHandler {
+public class KeyHandler : IDisposable {
 
+    private bool isDisposed = false;
     readonly ICryptoService cryptoService;
     readonly string path;
 
@@ -21,7 +22,7 @@ public class KeyHandler {
     public async Task<Option<ConnectionService, KeyError>> TrySet(string key) {
         var connection = await ConnectionService.CreateConnectionAsync(new (key));
         var output = connection.Match<Option<ConnectionService, KeyError>>(
-            some => throw new Exception(),
+            some => some,
             error => ConvertHttpStatusToKeyError(error.StatusCode),
             () => KeyError.Undefined
         );
@@ -65,6 +66,18 @@ public class KeyHandler {
         HttpStatusCode.NetworkAuthenticationRequired => KeyError.InvalidOrExpiredKey,
         _ => KeyError.Undefined,
     };
+
+    public void Dispose() {
+        lock(cryptoService) {
+            if(isDisposed) {
+                return;
+            }
+
+            cryptoService.Dispose();
+            isDisposed = true;
+            GC.SuppressFinalize(this);
+        }
+    }
 
     public enum KeyError {
         Undefined,
