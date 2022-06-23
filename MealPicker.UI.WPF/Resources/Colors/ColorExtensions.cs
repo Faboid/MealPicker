@@ -8,6 +8,15 @@ using System.Windows.Media;
 namespace MealPicker.UI.WPF.Resources.Colors {
     internal static class ColorExtensions {
 
+        public static SolidColorBrush WithOpacity(this SolidColorBrush brush, double value) {
+            brush.Opacity = value;
+            return brush;
+        }
+
+        public static SolidColorBrush ToSolidBrush(this string hex) {
+            return new(hex.ToColor());
+        }
+
         public static Color ToColor(this string hex) {
             
             if(hex[0] == '#') {
