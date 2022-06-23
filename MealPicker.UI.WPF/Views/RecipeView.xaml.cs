@@ -1,5 +1,7 @@
 ﻿using MealPicker.Core.Models;
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -54,7 +56,19 @@ namespace MealPicker.UI.WPF.Views {
         }
 
         private void RecipeLinkButton_Click(object sender, RoutedEventArgs e) {
-            throw new NotImplementedException(); //todo - implement link sender
+
+            if(Recipe?.SourceUrl == null || !Uri.IsWellFormedUriString(Recipe.SourceUrl, UriKind.Absolute)) {
+                return;
+            }
+            
+            try {
+                Process.Start(new ProcessStartInfo() {
+                    UseShellExecute = true,
+                    FileName = Recipe.SourceUrl
+                });
+            } 
+            catch(Win32Exception) { } //thrown when given an unvalid url.
+
         }
     }
 }
