@@ -10,14 +10,6 @@
         MinHeight="250" MinWidth="400"
         Height="650" Width="1100">
 
-    <Window.Resources>
-        <SolidColorBrush x:Key="TitleText" Color="White" Opacity="0.90"/>
-        <SolidColorBrush x:Key="TextBrush" Color="White" Opacity="0.67"/>
-        <SolidColorBrush x:Key="WindowBorder" Color="Black"/>
-        <SolidColorBrush x:Key="WindowBG" Color="#FF121212"/>
-        <SolidColorBrush x:Key="MessageBoxBG" Color="#FF272121"/>
-    </Window.Resources>
-
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CaptionHeight="30" 
@@ -26,7 +18,7 @@
 
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{DynamicResource WindowBorder}">
+    <Grid Background="{DynamicResource BG_100}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
@@ -55,7 +47,7 @@
                 Text="MealPicker"
                 FontSize="16"
                 Padding="0, 0, 0, 0"
-                Foreground="{DynamicResource TitleText}"/>
+                Foreground="{DynamicResource FG_100}"/>
 
             <Button 
                 x:Name="MinimizeButton"
@@ -89,7 +81,7 @@
             NavigationUIVisibility="Hidden"
             Grid.Row="2" 
             Grid.Column="1" 
-            Background="{DynamicResource WindowBG}"/>
+            Background="{DynamicResource BG_200}"/>
 
         <Grid 
             Grid.Row="2" 
@@ -110,7 +102,7 @@
                 x:Name="MessageBox"
                 Visibility="Hidden"
                 BorderBrush="Black"
-                Background="{DynamicResource MessageBoxBG}"
+                Background="{DynamicResource BG_300}"
                 BorderThickness="3, 0, 3, 3"
                 Grid.Row="0" 
                 Grid.Column="1"
@@ -131,7 +123,7 @@
 
                     <TextBlock
                         x:Name="MessageBoxMessageTextBlock"
-                        Foreground="{DynamicResource TextBrush}"
+                        Foreground="{DynamicResource FG_300}"
                         VerticalAlignment="Center"
                         TextWrapping="Wrap"
                         Margin="0, 0, 0, 10"
