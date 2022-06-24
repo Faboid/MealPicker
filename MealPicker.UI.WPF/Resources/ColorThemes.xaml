@@ -4,22 +4,22 @@
                     x:ClassModifier="public">
     
     <!--Theme-->
-    <SolidColorBrush x:Key="BG_100"/>
-    <SolidColorBrush x:Key="BG_200"/>
-    <SolidColorBrush x:Key="BG_300"/>
-    <SolidColorBrush x:Key="BG_400"/>
+    <SolidColorBrush x:Key="BG_100" Color="Black"/>
+    <SolidColorBrush x:Key="BG_200" Color="#FF121212"/>
+    <SolidColorBrush x:Key="BG_300" Color="#FF272121"/>
+    <SolidColorBrush x:Key="BG_400" Color="#443737"/>
 
-    <SolidColorBrush x:Key="FG_100"/>
-    <SolidColorBrush x:Key="FG_200"/>
-    <SolidColorBrush x:Key="FG_300"/>
-    <SolidColorBrush x:Key="FG_400"/>
+    <SolidColorBrush x:Key="FG_100" Color="White" Opacity="0.90"/>
+    <SolidColorBrush x:Key="FG_200" Color="White" Opacity="0.75"/>
+    <SolidColorBrush x:Key="FG_300" Color="White" Opacity="0.67"/>
+    <SolidColorBrush x:Key="FG_400" Color="White" Opacity="0.67"/>
 
-    <SolidColorBrush x:Key="Primary_100"/>
+    <SolidColorBrush x:Key="Primary_100" Color="#222831"/>
 
-    <SolidColorBrush x:Key="Highlight_100"/>
-    <SolidColorBrush x:Key="Highlight_200"/>
+    <SolidColorBrush x:Key="Highlight_100" Color="#606060"/>
+    <SolidColorBrush x:Key="Highlight_200" Color="DimGray"/>
 
-    <SolidColorBrush x:Key="Disabled_100"/>
+    <SolidColorBrush x:Key="Disabled_100" Color="#BFBFBF"/>
     <!--End Theme-->
 
 </ResourceDictionary>
