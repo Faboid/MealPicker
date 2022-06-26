@@ -11,6 +11,7 @@
                 <ResourceDictionary x:Name="DefaultDataGrid" Source="pack://application:,,,/Styles/DataGridStyle.xaml"/>
                 <ResourceDictionary x:Name="DefaultScrollbar" Source="pack://application:,,,/Styles/ScrollbarStyle.xaml"/>
                 <ResourceDictionary x:Name="DefaultTextBox" Source="pack://application:,,,/Styles/TextBoxStyle.xaml"/>
+                <ResourceDictionary x:Name="DefaultComboBox" Source="pack://application:,,,/Styles/ComboBoxStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
