@@ -7,6 +7,12 @@ using System.Windows.Media;
 
 namespace MealPicker.UI.WPF.Resources {
 
+    public enum ColorTheme {
+        Dark,
+        Light,
+        Coffee,
+    }
+
     public partial class ColorThemes : ResourceDictionary, IColorThemePainter {
 
         public static IColorThemePainter Painter => BrushesDictionary.Value;
@@ -56,6 +62,7 @@ namespace MealPicker.UI.WPF.Resources {
             _theme = theme switch {
                 ColorTheme.Dark => new DarkTheme(),
                 ColorTheme.Light => new LightTheme(),
+                ColorTheme.Coffee => new CoffeeTheme(),
                 _ => new DarkTheme(), //default
             };
 
@@ -86,11 +93,6 @@ namespace MealPicker.UI.WPF.Resources {
 
     public interface IColorThemePainter {
         public void Apply(ColorTheme theme);
-    }
-
-    public enum ColorTheme {
-        Dark,
-        Light
     }
 
 }
