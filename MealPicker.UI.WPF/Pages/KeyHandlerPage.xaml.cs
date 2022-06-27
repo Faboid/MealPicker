@@ -54,20 +54,32 @@ namespace MealPicker.UI.WPF.Pages {
         }
 
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e) {
-            var result = await current.ConfirmAsync();
-            if(result.Result() != Utils.Options.OptionResult.Some) {
-                //do nothing if it fails. Might consider adding some sort of form-wide popup, but it's handled by the IForm currently.
-                return;
+
+            try {
+
+                ConfirmButton.IsEnabled = false;
+
+                var result = await current.ConfirmAsync();
+                if(result.Result() != Utils.Options.OptionResult.Some) {
+                    //do nothing if it fails. Might consider adding some sort of form-wide popup, but it's handled by the IForm currently.
+                    return;
+                }
+
+                //since it's OptionResult.Some(or it would've returned early) the exception won't ever be hit.
+                //might do this differently in a future update
+                var conn = result.Match(
+                        some => some,
+                        () => throw new Exception()
+                    );
+
+                CloseAndReturn?.Invoke(this, conn);
+
+            } finally {
+                
+                ConfirmButton.IsEnabled = true;
+
             }
 
-            //since it's OptionResult.Some(or it would've returned early) the exception won't ever be hit.
-            //might do this differently in a future update
-            var conn = result.Match(
-                    some => some,
-                    () => throw new Exception()
-                );
-
-            CloseAndReturn?.Invoke(this, conn);
         }
     }
 }

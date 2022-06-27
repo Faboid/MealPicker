@@ -17,10 +17,19 @@ public partial class RecipePage : Page {
     }
 
     private async void RandomButton_Click(object sender, RoutedEventArgs e) {
-        var option = await navigator.NextAsync();
-        RecipeView.Recipe = option.Match(
-            some => some,
-            () => RecipeView.Recipe
-        );
+        try {
+            RandomButton.IsEnabled = false;
+
+            var option = await navigator.NextAsync();
+            RecipeView.Recipe = option.Match(
+                some => some,
+                () => RecipeView.Recipe
+            );
+        
+        } finally {
+
+            RandomButton.IsEnabled = true;
+        }
+
     }
 }
