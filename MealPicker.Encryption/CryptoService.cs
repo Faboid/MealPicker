@@ -17,7 +17,7 @@ namespace MealPicker.Encryption {
         internal CryptoService(char[] password, string version) : this(new Key(password), version) { }
         public CryptoService(Key key) : this(key, currentVersion) { }
 
-        internal CryptoService(Key key, string version) { //todo - consider whether to clear the given key
+        internal CryptoService(Key key, string version) {
             this.key = key;
             saltGenerator = new SaltGenerator(key.Get());
             versioning = new Versioning(version);
