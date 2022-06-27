@@ -1,41 +1,31 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="TextBrush" Color="White" Opacity="0.67"/>
-
-    <SolidColorBrush x:Key="DataGridColumnHeader.Background" Color="#222831"/>
-    <SolidColorBrush x:Key="DataGrid.Background" Color="#FF272121"/>
-    <SolidColorBrush x:Key="DataGrid.ForeGround" Color="Black"/>
-    <SolidColorBrush x:Key="DataGrid.BorderBrush" Color="#FF121212"/>
-    <SolidColorBrush x:Key="DataGridRow.Background" Color="#443737"/>
-    <SolidColorBrush x:Key="DataGridRow.Background.Selected" Color="Black"/>
-    <SolidColorBrush x:Key="DataGridCell.BorderBrush.Selected" Color="White"/>
-
     <Style TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="HeadersVisibility" Value="Column"/>
-        <Setter Property="Background" Value="{DynamicResource DataGrid.Background}"/>
-        <Setter Property="Foreground" Value="{DynamicResource DataGrid.ForeGround}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.BorderBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource BG_300}"/>
+        <Setter Property="Foreground" Value="{DynamicResource BG_100}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BG_200}"/>
     </Style>
 
     <Style TargetType="DataGridColumnHeader">
-        <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.BorderBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BG_200}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="5"/>
-        <Setter Property="Background" Value="{DynamicResource DataGridColumnHeader.Background}"/>
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource Primary_100}"/>
+        <Setter Property="Foreground" Value="{DynamicResource FG_300}"/>
     </Style>
 
     <Style TargetType="DataGridRow">
-        <Setter Property="Background" Value="{DynamicResource DataGridRow.Background}"/>
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource BG_400}"/>
+        <Setter Property="Foreground" Value="{DynamicResource FG_300}"/>
         <Setter Property="Padding" Value="0, 5, 0, 0"/>
         <Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
 
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource DataGridRow.Background.Selected}"/>
+                <Setter Property="Background" Value="{DynamicResource BG_100}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -43,8 +33,8 @@
     <Style TargetType="DataGridCell">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource DataGridRow.Background.Selected}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource DataGridCell.BorderBrush.Selected}"/>
+                <Setter Property="Background" Value="{DynamicResource BG_100}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource FG_100}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
