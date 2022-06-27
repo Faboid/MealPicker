@@ -26,6 +26,9 @@
                 <Setter Property="Background" Value="{DynamicResource Highlight_200}"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource FG_100}"/>
             </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{DynamicResource Disabled_100}"/>
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
