@@ -1,15 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="TextBrush" Color="White" Opacity="0.67"/>
-    <SolidColorBrush x:Key="BackgroundBrush" Color="#443737"/>
-    <SolidColorBrush x:Key="TextBox.MouseOver.BorderBrush" Color="#222831"/>
-    <SolidColorBrush x:Key="TextBox.KeyBoardFocus.BorderBrush" Color="Black"/>
-
     <Style TargetType="TextBox">
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource FG_300}"/>
+        <Setter Property="Background" Value="{DynamicResource BG_400}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -23,10 +18,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocused" Value="true">
-                            <Setter Property="BorderBrush" Value="{DynamicResource TextBox.KeyBoardFocus.BorderBrush}"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource BG_100}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="BorderBrush" Value="{DynamicResource TextBox.MouseOver.BorderBrush}"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource Primary_100}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
