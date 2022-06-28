@@ -16,7 +16,7 @@ namespace MealPicker.UI.WPF.Pages {
 
         private IForm current;
         public event EventHandler<string>? OnSendMessage;
-        public event EventHandler<ConnectionService>? CloseAndReturn;
+        public event EventHandler<IConnectionService>? CloseAndReturn;
 
         public KeyHandlerPage() {
             InitializeComponent();

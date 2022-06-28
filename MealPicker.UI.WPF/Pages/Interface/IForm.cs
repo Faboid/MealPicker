@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace MealPicker.UI.WPF.Pages.Interface {
     internal interface IForm {
 
-        public Task<Option<ConnectionService>> ConfirmAsync();
+        public Task<Option<IConnectionService>> ConfirmAsync();
 
     }
 }

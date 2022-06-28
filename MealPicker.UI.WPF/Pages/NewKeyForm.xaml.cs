@@ -19,12 +19,12 @@ namespace MealPicker.UI.WPF.Pages {
             InitializeComponent();
         }
 
-        public async Task<Option<ConnectionService>> ConfirmAsync() {
+        public async Task<Option<IConnectionService>> ConfirmAsync() {
 
             //todo - implement error message
             if(PasswordTextBox.Text != ConfirmPasswordTextBox.Text) {
                 OnSendMessage?.Invoke(this, "The passwords must be equal.");
-                return Option.None<ConnectionService>();
+                return Option.None<IConnectionService>();
             }
 
             CryptoService cryptoService = new(PasswordTextBox.Text.ToCharArray());
@@ -33,13 +33,13 @@ namespace MealPicker.UI.WPF.Pages {
 
             return result
                 .Match(
-                    some => some,
+                    some => Option.Some(some),
                     error => DisplayErrors(error),
-                    () => Option.None<ConnectionService>()
+                    () => Option.None<IConnectionService>()
                 );
         }
 
-        private Option<ConnectionService> DisplayErrors(KeyHandler.KeyError failResult) {
+        private Option<IConnectionService> DisplayErrors(KeyHandler.KeyError failResult) {
 
             var errorMessage = failResult switch {
                 KeyHandler.KeyError.Timeout => "The key check has timed out.",
@@ -49,7 +49,7 @@ namespace MealPicker.UI.WPF.Pages {
 
             OnSendMessage?.Invoke(this, errorMessage);
 
-            return Option.None<ConnectionService>();
+            return Option.None<IConnectionService>();
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using MealPicker.Core;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,6 +18,10 @@ public partial class RecipePage : Page {
     }
 
     private async void RandomButton_Click(object sender, RoutedEventArgs e) {
+        await SetNextRecipe();
+    }
+
+    private async Task SetNextRecipe() {
         try {
             RandomButton.IsEnabled = false;
 
@@ -25,11 +30,11 @@ public partial class RecipePage : Page {
                 some => some,
                 () => RecipeView.Recipe
             );
-        
+
         } finally {
 
             RandomButton.IsEnabled = true;
         }
-
     }
+
 }

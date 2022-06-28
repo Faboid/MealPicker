@@ -22,28 +22,28 @@ public partial class InsertPasswordForm : Page, IForm {
         InitializeComponent();
     }
 
-    public async Task<Option<ConnectionService>> ConfirmAsync() {
+    public async Task<Option<IConnectionService>> ConfirmAsync() {
         CryptoService crypto = new(PasswordTextBox.Text.ToCharArray());
         using KeyHandler keyHandler = new(crypto);
         var result = await keyHandler.TryGet();
 
-        return result.Match<Option<ConnectionService>>(
-            some => some,
+        return result.Match(
+            some => Option.Some(some),
             error => DisplayErrors(error),
-            () => Option.None<ConnectionService>()
+            () => Option.None<IConnectionService>()
         );
     }
 
-    private Option<ConnectionService> DisplayErrors(KeyHandler.KeyError failResult) {
+    private Option<IConnectionService> DisplayErrors(KeyHandler.KeyError failResult) {
 
         if(failResult == KeyHandler.KeyError.MissingKey) {
             OnMissingKey?.Invoke(this, EventArgs.Empty);
-            return Option.None<ConnectionService>();
+            return Option.None<IConnectionService>();
         }
 
         if(failResult == KeyHandler.KeyError.InvalidOrExpiredKey) {
             OnExpiredKey?.Invoke(this, EventArgs.Empty);
-            return Option.None<ConnectionService>();
+            return Option.None<IConnectionService>();
         }
 
         var errorMessage = failResult switch {
@@ -53,7 +53,7 @@ public partial class InsertPasswordForm : Page, IForm {
         };
 
         OnSendMessage?.Invoke(this, errorMessage);
-        return Option.None<ConnectionService>();
+        return Option.None<IConnectionService>();
     }
 
 }

@@ -21,7 +21,7 @@ namespace MealPicker.UI.WPF {
             ShowMessageBox(e);
         }
 
-        private void OnConnectionObtained(object? sender, ConnectionService e) {
+        private void OnConnectionObtained(object? sender, IConnectionService e) {
             RecipesNavigator nav = new(e);
             Dispatcher.Invoke(() => {
                 RecipePage page = new(nav);
