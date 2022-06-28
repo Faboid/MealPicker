@@ -5,14 +5,14 @@ namespace MealPicker.Core;
 
 internal class TimeoutCollection<T> : IDisposable {
 
-    public TimeoutCollection(List<T> recipes, TimeSpan timeout) {
+    public TimeoutCollection(IList<T> recipes, TimeSpan timeout) {
         this.timeout = timeout;
         Renew(recipes);
     }
 
     readonly TimeSpan timeout;
     private Timer timer;
-    private List<T> recipes;
+    private IList<T> recipes;
 
     public int Count => recipes.Count;
 
@@ -21,7 +21,7 @@ internal class TimeoutCollection<T> : IDisposable {
     }
 
     [MemberNotNull(nameof(timer), nameof(recipes))]
-    public void Renew(List<T> recipes) {
+    public void Renew(IList<T> recipes) {
         this.recipes?.Clear();
         timer?.Change(timeout, TimeSpan.Zero);
 
