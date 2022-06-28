@@ -15,6 +15,11 @@ public partial class RecipePage : Page {
     public RecipePage(RecipesNavigator navigator) {
         InitializeComponent();
         this.navigator = navigator;
+        Loaded += RecipePage_Loaded;
+    }
+
+    private async void RecipePage_Loaded(object sender, RoutedEventArgs e) {
+        await SetNextRecipe();
     }
 
     private async void RandomButton_Click(object sender, RoutedEventArgs e) {
