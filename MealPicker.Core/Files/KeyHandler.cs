@@ -30,17 +30,20 @@ public class KeyHandler : IDisposable {
     readonly ICryptoService cryptoService;
     readonly string path;
 
+    private readonly ConnectionServiceFactory cnnServiceFactory;
+
     public KeyHandler(ICryptoService cryptoService) : this(cryptoService, PathBuilder.GetKeyPath) { }
 
     internal KeyHandler(ICryptoService cryptoService, string customPath) {
         this.cryptoService = cryptoService;
         path = customPath;
+        cnnServiceFactory = new();
     }
 
-    public async Task<Option<ConnectionService, KeyError>> TrySet(string key) {
-        var connection = await ConnectionService.CreateConnectionAsync(new (key));
-        var output = connection.Match<Option<ConnectionService, KeyError>>(
-            some => some,
+    public async Task<Option<IConnectionService, KeyError>> TrySet(string key) {
+        var connection = await cnnServiceFactory.BuildConnectionService(new (key));
+        var output = connection.Match(
+            some => Option.Some<IConnectionService, KeyError>(some),
             error => ConvertHttpStatusToKeyError(error.StatusCode),
             () => KeyError.Undefined
         );
@@ -53,7 +56,7 @@ public class KeyHandler : IDisposable {
         return output;
     }
 
-    public async Task<Option<ConnectionService, KeyError>> TryGet() {
+    public async Task<Option<IConnectionService, KeyError>> TryGet() {
         if(File.Exists(path) == false) {
             return KeyError.MissingKey;
         }
@@ -65,10 +68,10 @@ public class KeyHandler : IDisposable {
 
         try {
             var key = cryptoService.Decrypt(cipher);
-            var connectionOption = await ConnectionService.CreateConnectionAsync(new(key)).ConfigureAwait(false);
+            var connectionOption = await cnnServiceFactory.BuildConnectionService(new(key)).ConfigureAwait(false);
 
-            return connectionOption.Match<Option<ConnectionService, KeyError>>(
-                    some => some,
+            return connectionOption.Match(
+                    some => Option.Some<IConnectionService, KeyError>(some),
                     error => ConvertHttpStatusToKeyError(error.StatusCode),
                     () => KeyError.Undefined
                 );

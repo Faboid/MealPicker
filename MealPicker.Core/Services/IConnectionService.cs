@@ -6,7 +6,6 @@ namespace MealPicker.Core.Services;
 
 public interface IConnectionService {
 
-    public record struct FailResult(HttpStatusCode StatusCode, string? ReasonPhrase);
-    Task<Option<ListRecipesResult, FailResult>> GetRandomRecipesAsync(int amount);
+    Task<Option<ListRecipesResult, Requester.FailResult>> GetRandomRecipesAsync(int amount);
 
 }
