@@ -12,7 +12,7 @@ public class RecipesNavigator {
     }
 
     private readonly Locker locker = new(1);
-    private readonly TimeoutCollection<RecipeModel> containerRecipes = new(new(), TimeSpan.FromHours(1));
+    private readonly TimeoutCollection<RecipeModel> containerRecipes = new(new List<RecipeModel>(), TimeSpan.FromHours(1));
     private readonly IConnectionService connection;
 
     public async Task<Option<RecipeModel>> NextAsync() {
