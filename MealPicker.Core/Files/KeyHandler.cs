@@ -4,7 +4,7 @@ using MealPicker.Utils;
 using System.Net;
 using System.Security.Cryptography;
 
-namespace MealPicker.Core.Files; 
+namespace MealPicker.Core.Files;
 
 public class KeyHandler : IDisposable {
 
