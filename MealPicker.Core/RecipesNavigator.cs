@@ -27,20 +27,21 @@ public class RecipesNavigator {
 
     //todo - decide what to do if all the results that get returned are faulted(infinite loop)
     private async Task<Option<RecipeModel>> NoLock_NextAsync() {
+        
+        Option<RecipeModel> option;
 
-        if(containerRecipes.Count == 0) {
-            var recipes = await connection.GetRandomRecipesAsync(100);
-            containerRecipes.Renew(recipes.Or(new()).Recipes.ToList());
-        }
+        do {
 
-        var recipe = containerRecipes.Next();
+            if(containerRecipes.Count == 0) {
+                var recipes = await connection.GetRandomRecipesAsync(100);
+                containerRecipes.Renew(recipes.Or(new()).Recipes.ToList());
+            }
 
-        var result = recipe.Bind<bool>(x => ValidateValues(x)).Or(false);
-        if(!result) {
-            return await NoLock_NextAsync();
-        }
+            option = containerRecipes.Next();
 
-        return recipe;
+        } while (!option.Bind<bool>(x => ValidateValues(x)).Or(false));
+
+        return option;
     }
 
     private static bool ValidateValues(RecipeModel recipe) {
