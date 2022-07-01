@@ -23,7 +23,6 @@ namespace MealPicker.UI.WPF.Pages {
 
         public async Task<Option<IConnectionService>> ConfirmAsync() {
 
-            //todo - implement error message
             if(PasswordTextBox.Text != ConfirmPasswordTextBox.Text) {
                 OnSendMessage?.Invoke(this, "The passwords must be equal.");
                 return Option.None<IConnectionService>();
