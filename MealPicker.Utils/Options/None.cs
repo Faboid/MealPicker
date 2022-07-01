@@ -21,5 +21,6 @@ public struct None<TValue, TError> : IOption<TValue, TError> {
     public Option<T, TError> Bind<T>(Func<TValue, Option<T, TError>> func) => new None<T, TError>();
     public Task<Option<T, TError>> BindAsync<T>(Func<TValue, Task<Option<T, TError>>> func) => Task.FromResult<Option<T, TError>>(new None<T, TError>());
     public TValue Or(TValue def) => def;
+    public TError OrError(TError def) => def;
 
 }

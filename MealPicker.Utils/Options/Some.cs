@@ -32,6 +32,7 @@ public struct Some<TValue, TError> : IOption<TValue, TError> {
     public Option<T, TError> Bind<T>(Func<TValue, Option<T, TError>> func) => func.Invoke(value);
     public async Task<Option<T, TError>> BindAsync<T>(Func<TValue, Task<Option<T, TError>>> func) => await func.Invoke(value);
     public TValue Or(TValue def) => value;
+    public TError OrError(TError def) => def;
 
 
     public static implicit operator Some<TValue, TError>(TValue value) => new(value);

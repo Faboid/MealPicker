@@ -45,6 +45,7 @@ namespace MealPicker.Utils.Tests {
             Assert.Equal(0, firstRes);
             Assert.Equal(20, none.Or(20));
             Assert.Equal(50, error.Or(50));
+            Assert.Equal(errorMessage, error.OrError("sup"));
 
             Assert.IsType<None<int, string>>(GetUnderlyingOption(none));
             Assert.IsType<None<bool, string>>(GetUnderlyingOption(noneTwo));
@@ -122,6 +123,8 @@ namespace MealPicker.Utils.Tests {
 
             //assert
             Assert.Equal(expected, result);
+            Assert.Equal(expected, option.Or(2) + 2);
+            Assert.Equal("nope", option.OrError("nope"));
             option.Is(OptionResult.Some);
             Assert.IsType<Some<int, string>>(GetUnderlyingOption(option));
 
@@ -158,6 +161,7 @@ namespace MealPicker.Utils.Tests {
 
             //assert
             Assert.Equal(errorMessage, result);
+            Assert.Equal(errorMessage, option.OrError("nope"));
             option.Is(OptionResult.Error);
             Assert.IsType<Error<bool, string>>(GetUnderlyingOption(bind));
 
@@ -204,6 +208,8 @@ namespace MealPicker.Utils.Tests {
 
             //assert
             Assert.True(result);
+            Assert.Equal("stuff", option.Or("stuff"));
+            Assert.Equal(true, option.OrError(true));
             option.Is(OptionResult.None);
             Assert.IsType<None<int, bool?>>(GetUnderlyingOption(bind));
 

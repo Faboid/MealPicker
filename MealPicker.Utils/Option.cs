@@ -82,6 +82,8 @@ public struct Option<TValue, TError> {
     public Option<T, TError> Bind<T>(Func<TValue, Option<T, TError>> func) => GetOption.Bind(func);
     public async Task<Option<T, TError>> BindAsync<T>(Func<TValue, Task<Option<T, TError>>> func) => await GetOption.BindAsync(func).ConfigureAwait(false);
     public TValue Or(TValue def) => GetOption.Or(def);
+    public TError OrError(TError def) => GetOption.OrError(def);
+
 
     //static constructors
     public static Option<TValue, TError> Some(TValue value) => new(value);
