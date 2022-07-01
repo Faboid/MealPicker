@@ -14,9 +14,11 @@ namespace MealPicker.UI.WPF.Pages {
     public partial class NewKeyForm : Page, IForm {
 
         public event EventHandler<string>? OnSendMessage;
+        private readonly ILogger logger;
 
-        public NewKeyForm() {
+        public NewKeyForm(ILogger logger) {
             InitializeComponent();
+            this.logger = logger;
         }
 
         public async Task<Option<IConnectionService>> ConfirmAsync() {
@@ -28,7 +30,7 @@ namespace MealPicker.UI.WPF.Pages {
             }
 
             CryptoService cryptoService = new(PasswordTextBox.Text.ToCharArray());
-            using KeyHandler handler = new(cryptoService);
+            using KeyHandler handler = new(logger, cryptoService);
             var result = await handler.TrySet(APIKeyTextBox.Text);
 
             return result

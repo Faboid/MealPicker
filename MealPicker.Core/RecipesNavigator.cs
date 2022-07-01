@@ -2,17 +2,21 @@
 using MealPicker.Core.Models;
 using MealPicker.Core.Services;
 using MealPicker.Utils;
+using MealPicker.Utils.Options;
 
 namespace MealPicker.Core;
 
 public class RecipesNavigator {
 
-    public RecipesNavigator(IConnectionService connection) {
+    public RecipesNavigator(ILogger logger, IConnectionService connection) {
         this.connection = connection;
+        this.logger = logger;
+        containerRecipes = new(logger, new List<RecipeModel>(), TimeSpan.FromHours(1));
     }
 
+    private readonly ILogger logger;
     private readonly Locker locker = new(1);
-    private readonly TimeoutCollection<RecipeModel> containerRecipes = new(new List<RecipeModel>(), TimeSpan.FromHours(1));
+    private readonly TimeoutCollection<RecipeModel> containerRecipes;
     private readonly IConnectionService connection;
 
     public async Task<Option<RecipeModel>> NextAsync() {
@@ -25,23 +29,32 @@ public class RecipesNavigator {
         return await NoLock_NextAsync().ConfigureAwait(false);
     }
 
-    //todo - decide what to do if all the results that get returned are faulted(infinite loop)
     private async Task<Option<RecipeModel>> NoLock_NextAsync() {
-        
-        Option<RecipeModel> option;
 
-        do {
+        while(containerRecipes.Count == 0) {
+                    
+            var optionRecipes = await connection.GetRandomRecipesAsync(100);
 
-            if(containerRecipes.Count == 0) {
-                var recipes = await connection.GetRandomRecipesAsync(100);
-                containerRecipes.Renew(recipes.Or(new()).Recipes.ToList());
+            var result = optionRecipes.Result();
+
+            if(result == OptionResult.Error || result == OptionResult.None) {
+                var err = optionRecipes.OrError(new(System.Net.HttpStatusCode.BadRequest, "Unknown."));
+                logger.LogError($"The call to get random recipes has failed, code {err.StatusCode}. Reason: {err.ReasonPhrase}");
+                continue; //todo - return none or some kind of error
             }
 
-            option = containerRecipes.Next();
+            var list = optionRecipes
+                .Or(new())
+                .Recipes
+                .Where(x => ValidateValues(x))
+                .ToList();
 
-        } while (!option.Bind<bool>(x => ValidateValues(x)).Or(false));
+            containerRecipes.Renew(list);
 
-        return option;
+        }
+
+        return containerRecipes.Next();
+
     }
 
     private static bool ValidateValues(RecipeModel recipe) {

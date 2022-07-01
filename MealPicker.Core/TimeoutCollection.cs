@@ -5,11 +5,13 @@ namespace MealPicker.Core;
 
 internal class TimeoutCollection<T> : IDisposable {
 
-    public TimeoutCollection(IList<T> recipes, TimeSpan timeout) {
+    public TimeoutCollection(ILogger logger, IList<T> recipes, TimeSpan timeout) {
         this.timeout = timeout;
+        this.logger = logger;
         Renew(recipes);
     }
 
+    private readonly ILogger logger;
     readonly TimeSpan timeout;
     private Timer timer;
     private IList<T> recipes;
@@ -18,6 +20,7 @@ internal class TimeoutCollection<T> : IDisposable {
 
     private void Reset(object? unused) {
         recipes.Clear();
+        logger.LogInfo("The TimeoutCollection's timer has expired and the recipes have been cleared.");
     }
 
     [MemberNotNull(nameof(timer), nameof(recipes))]

@@ -1,6 +1,7 @@
 ﻿using MealPicker.Core;
 using MealPicker.Core.Services;
 using MealPicker.UI.WPF.Pages;
+using MealPicker.Utils;
 using System.Windows;
 
 namespace MealPicker.UI.WPF {
@@ -8,10 +9,13 @@ namespace MealPicker.UI.WPF {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+
+        private readonly ILogger logger = new Logger();
+
         public MainWindow() {
             InitializeComponent();
 
-            KeyHandlerPage page = new();
+            KeyHandlerPage page = new(logger);
             page.OnSendMessage += Page_OnSendMessage;
             page.CloseAndReturn += OnConnectionObtained;
             PageContainer.Navigate(page);
@@ -22,7 +26,7 @@ namespace MealPicker.UI.WPF {
         }
 
         private void OnConnectionObtained(object? sender, IConnectionService e) {
-            RecipesNavigator nav = new(e);
+            RecipesNavigator nav = new(logger, e);
             Dispatcher.Invoke(() => {
                 RecipePage page = new(nav);
                 PageContainer.Navigate(page);

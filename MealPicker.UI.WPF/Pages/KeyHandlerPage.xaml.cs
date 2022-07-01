@@ -1,6 +1,7 @@
 ﻿using MealPicker.Core.Files;
 using MealPicker.Core.Services;
 using MealPicker.UI.WPF.Pages.Interface;
+using MealPicker.Utils;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -18,15 +19,18 @@ namespace MealPicker.UI.WPF.Pages {
         public event EventHandler<string>? OnSendMessage;
         public event EventHandler<IConnectionService>? CloseAndReturn;
 
-        public KeyHandlerPage() {
+        private readonly ILogger logger;
+
+        public KeyHandlerPage(ILogger logger) {
             InitializeComponent();
+            this.logger = logger;
 
             if(!KeyHandler.KeyMightExist()) {
                 NewKeyFormHandler();
                 return;
             }
 
-            var form = new InsertPasswordForm();
+            var form = new InsertPasswordForm(logger);
             form.OnSendMessage += (a, b) => OnSendMessage?.Invoke(a, b);
             form.OnMissingKey += Form_OnMissingKey;
             form.OnExpiredKey += Form_OnExpiredKey;
@@ -47,7 +51,7 @@ namespace MealPicker.UI.WPF.Pages {
 
         [MemberNotNull(nameof(current))]
         private void NewKeyFormHandler() {
-            var form = new NewKeyForm();
+            var form = new NewKeyForm(logger);
             form.OnSendMessage += (a, b) => OnSendMessage?.Invoke(a, b);
             current = form;
             PageContainer.Navigate(current);

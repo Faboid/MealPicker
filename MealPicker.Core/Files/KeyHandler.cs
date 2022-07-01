@@ -32,12 +32,12 @@ public class KeyHandler : IDisposable {
 
     private readonly ConnectionServiceFactory cnnServiceFactory;
 
-    public KeyHandler(ICryptoService cryptoService) : this(cryptoService, PathBuilder.GetKeyPath) { }
+    public KeyHandler(ILogger logger, ICryptoService cryptoService) : this(logger, cryptoService, PathBuilder.GetKeyPath) { }
 
-    internal KeyHandler(ICryptoService cryptoService, string customPath) {
+    internal KeyHandler(ILogger logger, ICryptoService cryptoService, string customPath) {
         this.cryptoService = cryptoService;
         path = customPath;
-        cnnServiceFactory = new();
+        cnnServiceFactory = new(logger);
     }
 
     public async Task<Option<IConnectionService, KeyError>> TrySet(string key) {
