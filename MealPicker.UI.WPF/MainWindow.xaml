@@ -51,6 +51,7 @@
                 Foreground="{DynamicResource FG_100}"/>
 
             <usercontrols:ThemeSelector
+                x:Name="ThemesSelector"
                 Grid.Column="1"
                 WindowChrome.IsHitTestVisibleInChrome="True"
                 />

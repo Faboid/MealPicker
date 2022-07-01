@@ -15,6 +15,7 @@ namespace MealPicker.UI.WPF {
         public MainWindow() {
             InitializeComponent();
 
+            ThemesSelector.Logger = logger;
             KeyHandlerPage page = new(logger);
             page.OnSendMessage += Page_OnSendMessage;
             page.CloseAndReturn += OnConnectionObtained;
