@@ -1,6 +1,6 @@
 ﻿namespace MealPicker.Utils; 
 
-internal class Logger : ILogger {
+public class Logger : ILogger {
     
     public Logger() : this(Path.Combine(PathBuilder.GetWorkingDirectory, "Logs.txt")) { }
 
