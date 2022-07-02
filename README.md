@@ -9,3 +9,10 @@ Specifics:
  - An encrypted version of the API key gets stored locally so that a custom password can be used instead.
  - Exceptional situations are stored in a Log.txt file in the exe's folder. Said log file will keep the information up to the last 10 sessions, and deletes everything before to avoid bloat.
  - Uses events to send messages up the chain, from pages to the main window, so that they can be displayed in a uniform manner without using a message box.
+
+
+
+# Terms of service for the use of this application:
+Mealpicker stores in a local file an encrypted version of your API key by using the password you choose. You are responsible for choosing a safe, long password, and for regularly updating the API key.
+
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
