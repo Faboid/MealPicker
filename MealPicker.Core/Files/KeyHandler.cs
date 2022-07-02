@@ -6,6 +6,9 @@ using System.Security.Cryptography;
 
 namespace MealPicker.Core.Files;
 
+/// <summary>
+/// Handles storage, encryption, and retrieval of the API key.
+/// </summary>
 public class KeyHandler : IDisposable {
 
     /// <summary>
@@ -18,7 +21,7 @@ public class KeyHandler : IDisposable {
         if(!File.Exists(path)) {
             return false;
         }
-
+        
         if(string.IsNullOrWhiteSpace(File.ReadAllText(path))) {
             return false;
         }
@@ -32,14 +35,30 @@ public class KeyHandler : IDisposable {
 
     private readonly ConnectionServiceFactory cnnServiceFactory;
 
+    /// <summary>
+    /// Initializes an instance of <see cref="KeyHandler"/> with the default path.
+    /// </summary>
+    /// <param name="logger"></param>
+    /// <param name="cryptoService"></param>
     public KeyHandler(ILogger logger, ICryptoService cryptoService) : this(logger, cryptoService, PathBuilder.GetKeyPath) { }
 
+    /// <summary>
+    /// Initializes an instance of <see cref="KeyHandler"/> with a custom path.
+    /// </summary>
+    /// <param name="logger"></param>
+    /// <param name="cryptoService"></param>
+    /// <param name="customPath"></param>
     internal KeyHandler(ILogger logger, ICryptoService cryptoService, string customPath) {
         this.cryptoService = cryptoService;
         path = customPath;
         cnnServiceFactory = new(logger);
     }
 
+    /// <summary>
+    /// Checks the validity of the key, then encrypts it and stores it if it's correct.
+    /// </summary>
+    /// <param name="key">The API key that will be saved.</param>
+    /// <returns>An option with either a <see cref="IConnectionService"/> if successful or a <see cref="KeyError"/> on failure.</returns>
     public async Task<Option<IConnectionService, KeyError>> TrySet(string key) {
         var connection = await cnnServiceFactory.BuildConnectionService(new (key));
         var output = connection.Match(
@@ -56,6 +75,10 @@ public class KeyHandler : IDisposable {
         return output;
     }
 
+    /// <summary>
+    /// Attempts retrieving and decrypting the API key.
+    /// </summary>
+    /// <returns>An option with <see cref="IConnectionService"/> on success, and <see cref="KeyError"/> on failure.</returns>
     public async Task<Option<IConnectionService, KeyError>> TryGet() {
         if(File.Exists(path) == false) {
             return KeyError.MissingKey;
@@ -100,6 +123,9 @@ public class KeyHandler : IDisposable {
         }
     }
 
+    /// <summary>
+    /// A list of errors that may happen when storing or retrieving the key.
+    /// </summary>
     public enum KeyError {
         Undefined,
         Timeout,
