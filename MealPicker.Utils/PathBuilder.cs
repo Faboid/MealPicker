@@ -12,4 +12,8 @@ public static class PathBuilder {
     /// </summary>
     public static string GetKeyPath { get; } = Path.Combine(GetWorkingDirectory, "Key.txt");
 
+    /// <summary>
+    /// Gets the path to the settings file.
+    /// </summary>
+    public static string SettingsPath { get; } = Path.Combine(GetWorkingDirectory, "Settings.txt");
 }
