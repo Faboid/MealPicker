@@ -34,6 +34,7 @@ namespace MealPicker.UI.WPF {
             Dispatcher.Invoke(() => {
                 RecipePage page = new(nav);
                 page.OnSendMessage += Page_OnSendMessage;
+                PageContainer.NavigationService.RemoveBackEntry();
                 PageContainer.Navigate(page);
             });
         }
