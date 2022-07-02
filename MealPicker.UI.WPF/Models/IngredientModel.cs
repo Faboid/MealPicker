@@ -1,6 +1,6 @@
 ﻿namespace MealPicker.UI.WPF.Models; 
 
-internal class IngredientModel {
+public class IngredientModel {
 
     public IngredientModel(string name, double amount, string unit) {
         Name = name;

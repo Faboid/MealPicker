@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MealPicker.UI.WPF.Models {
-    internal class RecipeModel {
+    public class RecipeModel {
 
         public RecipeModel(int id, string title, string image, int readyInMinutes, int servings, string sourceName, string sourceUrl, IngredientModel[] extendedIngredients, string summary) {
             Id = id;
@@ -16,7 +16,7 @@ namespace MealPicker.UI.WPF.Models {
             SourceName = sourceName;
             SourceUrl = sourceUrl;
             ExtendedIngredients = extendedIngredients;
-            Summary = summary;
+            Summary = Core.Conversions.HTML.ToPlainText(summary);
         }
 
         public RecipeModel(Core.Models.RecipeModel recipe) {
@@ -27,8 +27,8 @@ namespace MealPicker.UI.WPF.Models {
             Servings = recipe.Servings;
             SourceName = recipe.SourceName;
             SourceUrl = recipe.SourceUrl;
-            ExtendedIngredients = recipe.ExtendedIngredients.Cast<IngredientModel>().ToArray();
-            Summary = recipe.Summary;
+            ExtendedIngredients = recipe.ExtendedIngredients.Select(x => (IngredientModel)x).ToArray();
+            Summary = Core.Conversions.HTML.ToPlainText(recipe.Summary);
         }
 
         public int Id { get; set; }
