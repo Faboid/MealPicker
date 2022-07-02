@@ -13,8 +13,6 @@ namespace MealPicker.UI.WPF.Pages {
     /// </summary>
     public partial class KeyHandlerPage : Page {
 
-        //todo - introduct disposing protocol for subscribed events
-
         private IForm current;
         public event EventHandler<string>? OnSendMessage;
         public event EventHandler<(KeyHandlerPage, IConnectionService)>? CloseAndReturn;
