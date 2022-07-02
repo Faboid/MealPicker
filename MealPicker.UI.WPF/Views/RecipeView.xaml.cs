@@ -1,4 +1,4 @@
-﻿using MealPicker.Core.Models;
+﻿using MealPicker.UI.WPF.Models;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,43 +16,11 @@ namespace MealPicker.UI.WPF.Views {
         }
 
         public static readonly DependencyProperty RecipeProperty =
-            DependencyProperty.Register("Recipe", typeof(RecipeModel), typeof(UserControl), new PropertyMetadata(new RecipeModel()));
+            DependencyProperty.Register("Recipe", typeof(RecipeModel), typeof(UserControl));
 
         public RecipeModel Recipe {
             get => (RecipeModel)GetValue(RecipeProperty);
-            set {
-                SetValue(RecipeProperty, value);
-                LoadRecipe(value);
-            }
-        }
-
-        private void LoadRecipe(RecipeModel recipe) {
-
-            //set title
-            TitleRecipe_TextBlock.Text = recipe.Title;
-
-            //set image
-            var image = new BitmapImage();
-            image.BeginInit();
-            image.UriSource = new Uri(recipe.Image);
-            image.EndInit();
-            RecipeImage.Source = image;
-
-            //add specific info
-            ReadyInMinutesTextBlock.Text = recipe.ReadyInMinutes.ToString();
-            ServingsTextBlock.Text = recipe.Servings.ToString();
-
-            //refresh ingredients list
-            IngredientsListDataGrid.ItemsSource = null;
-            IngredientsListDataGrid.ItemsSource = recipe.ExtendedIngredients;
-
-            //add summary
-            SummaryTextBox.Text = Core.Conversions.HTML.ToPlainText(recipe.Summary);
-
-            //add authors info
-            RecipeAuthorNameTextBlock.Text = recipe.SourceName;
-            RecipeLinkButton.Content = recipe.SourceUrl;
-
+            set => SetValue(RecipeProperty, value);
         }
 
         private void RecipeLinkButton_Click(object sender, RoutedEventArgs e) {
