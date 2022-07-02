@@ -1,4 +1,5 @@
 ﻿using MealPicker.UI.WPF.Resources.Colors.Themes;
+using MealPicker.Utils;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -46,7 +47,10 @@ namespace MealPicker.UI.WPF.Resources {
         public ColorThemes() {
             InitializeComponent();
             dict = this;
-            Apply(0);
+            if(!Enum.TryParse<ColorTheme>(settings.Get(themeSettings).Or(""), out var theme)) {
+                theme = ColorTheme.Dark; //use as default
+            }
+            Apply(theme);
         }
 
         private ColorThemes(ResourceDictionary dictionary) {
@@ -55,6 +59,8 @@ namespace MealPicker.UI.WPF.Resources {
         }
 
         private IColorTheme _theme;
+        private const string themeSettings = "theme";
+        private readonly Settings settings = new();
         private readonly ResourceDictionary dict;
 
         [MemberNotNull(nameof(_theme))]
@@ -85,6 +91,7 @@ namespace MealPicker.UI.WPF.Resources {
 
             dict[Disabled_100] = _theme.Disabled_100;
 
+            settings.Set(themeSettings, theme.ToString());
         }
 
         public event EventHandler<IColorTheme>? OnChangedTheme;
