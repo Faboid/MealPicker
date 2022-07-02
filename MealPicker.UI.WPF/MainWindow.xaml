@@ -1,0 +1,157 @@
+﻿<Window x:Class="MealPicker.UI.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:usercontrols="clr-namespace:MealPicker.UI.WPF.UserControls"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Title="MealPicker" 
+        MinHeight="250" MinWidth="400"
+        Height="650" Width="1100">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            CaptionHeight="30" 
+            ResizeBorderThickness="5"
+            />
+
+    </WindowChrome.WindowChrome>
+
+    <Grid Background="{DynamicResource BG_100}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+
+        <!--topbar-->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition MinWidth="50" MaxWidth="140"/>
+                <ColumnDefinition MinWidth="15" MaxWidth="30"/>
+                <ColumnDefinition MinWidth="15" MaxWidth="30"/>
+                <ColumnDefinition MinWidth="15" MaxWidth="30"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Grid.Column="0" 
+                Text="MealPicker"
+                FontSize="16"
+                Padding="0, 0, 0, 0"
+                Foreground="{DynamicResource FG_100}"/>
+
+            <usercontrols:ThemeSelector
+                x:Name="ThemesSelector"
+                Grid.Column="1"
+                WindowChrome.IsHitTestVisibleInChrome="True"
+                />
+
+            <Button 
+                x:Name="MinimizeButton"
+                Click="MinimizeButton_Click"
+                WindowChrome.IsHitTestVisibleInChrome="True"
+                Content="—"
+                Grid.Column="2" 
+                />
+            
+            <Button 
+                x:Name="ResizeButton"
+                Click="ResizeButton_Click"
+                WindowChrome.IsHitTestVisibleInChrome="True"
+                Content="▢"
+                Grid.Column="3"
+                />
+            
+            <Button 
+                x:Name="CloseButton"
+                Click="CloseButton_Click"
+                WindowChrome.IsHitTestVisibleInChrome="True"
+                Content="✖"
+                Grid.Column="4"
+                />
+
+        </Grid>
+        
+        <!--Page Container-->
+        <Frame 
+            x:Name="PageContainer"
+            NavigationUIVisibility="Hidden"
+            Grid.Row="2" 
+            Grid.Column="1" 
+            Background="{DynamicResource BG_200}"/>
+
+        <Grid 
+            Grid.Row="2" 
+            Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="120" Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="100" Width="1*"/>
+                <ColumnDefinition MinWidth="200" Width="2*"/>
+                <ColumnDefinition MinWidth="20" Width="1.01*" MaxWidth="50"/>
+            </Grid.ColumnDefinitions>
+
+            <Border 
+                x:Name="MessageBox"
+                Visibility="Hidden"
+                BorderBrush="Black"
+                Background="{DynamicResource BG_300}"
+                BorderThickness="3, 0, 3, 3"
+                Grid.Row="0" 
+                Grid.Column="1"
+                >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="10" Height="*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition MinHeight="40" Height="2*"/>
+                        <RowDefinition MinHeight="5" Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="10" Width="*" MaxWidth="30"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition MinWidth="10" Width="*" MaxWidth="30"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        x:Name="MessageBoxMessageTextBlock"
+                        Foreground="{DynamicResource FG_300}"
+                        VerticalAlignment="Center"
+                        TextWrapping="Wrap"
+                        Margin="0, 0, 0, 10"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        />
+
+                    <Button 
+                        x:Name="MessageBoxOkButton"
+                        Click="MessageBoxOkButton_Click"
+                        Content="Ok"
+                        Margin="10"
+                        Width="80"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        />
+
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+</Window>

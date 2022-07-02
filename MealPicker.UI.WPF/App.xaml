@@ -1,0 +1,18 @@
+﻿<Application x:Class="MealPicker.UI.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MealPicker.UI.WPF"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="ColorThemes" Source="pack://application:,,,/Resources/ColorThemes.xaml"/>
+                <ResourceDictionary x:Name="DefaultButton" Source="pack://application:,,,/Styles/ButtonStyle.xaml"/>
+                <ResourceDictionary x:Name="DefaultDataGrid" Source="pack://application:,,,/Styles/DataGridStyle.xaml"/>
+                <ResourceDictionary x:Name="DefaultScrollbar" Source="pack://application:,,,/Styles/ScrollbarStyle.xaml"/>
+                <ResourceDictionary x:Name="DefaultTextBox" Source="pack://application:,,,/Styles/TextBoxStyle.xaml"/>
+                <ResourceDictionary x:Name="DefaultComboBox" Source="pack://application:,,,/Styles/ComboBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

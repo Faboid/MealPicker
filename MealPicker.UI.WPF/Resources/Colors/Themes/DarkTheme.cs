@@ -1,0 +1,24 @@
+﻿using System.Windows.Media;
+
+namespace MealPicker.UI.WPF.Resources.Colors.Themes;
+
+public class DarkTheme : IColorTheme {
+
+    public SolidColorBrush BG_100 { get; } = "#000000".ToSolidBrush();
+    public SolidColorBrush BG_200 { get; } = "FF121212".ToSolidBrush();
+    public SolidColorBrush BG_300 { get; } = "FF272121".ToSolidBrush();
+    public SolidColorBrush BG_400 { get; } = "443737".ToSolidBrush();
+
+    private const string white = "FFFFFF";
+    public SolidColorBrush FG_100 { get; } = white.ToSolidBrush().WithOpacity(0.90);
+    public SolidColorBrush FG_200 { get; } = white.ToSolidBrush().WithOpacity(0.75);
+    public SolidColorBrush FG_300 { get; } = white.ToSolidBrush().WithOpacity(0.67);
+    public SolidColorBrush FG_400 { get; } = white.ToSolidBrush().WithOpacity(0.67);
+    
+    public SolidColorBrush Primary_100 { get; } = "222831".ToSolidBrush();
+    
+    public SolidColorBrush Highlight_100 { get; } = "606060".ToSolidBrush();
+    public SolidColorBrush Highlight_200 { get; } = "696969".ToSolidBrush();
+    
+    public SolidColorBrush Disabled_100 { get; } = "BFBFBF".ToSolidBrush();
+}

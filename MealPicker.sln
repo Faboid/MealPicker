@@ -1,11 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.357
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPickerLibrary", "MealPickerLibrary\MealPickerLibrary.csproj", "{09F11FEE-7F34-4683-A0C6-3B22624B475E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.Core", "MealPicker.Core\MealPicker.Core.csproj", "{BDD0472E-40F6-4AF7-8906-3563213E7542}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPickerUI", "MealPickerUI\MealPickerUI.csproj", "{FDBDD9BF-F72E-4C12-96E4-1F5665E1B398}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.Encryption", "MealPicker.Encryption\MealPicker.Encryption.csproj", "{8F28947A-3C5B-4EF2-804E-17666C174EF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.Encryption.Tests", "MealPicker.Encryption.Tests\MealPicker.Encryption.Tests.csproj", "{0BBA2557-5464-461C-B9D0-206B72FDF15B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.Utils", "MealPicker.Utils\MealPicker.Utils.csproj", "{9420E763-849B-4952-BAF0-57C95A475C2B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.Utils.Tests", "MealPicker.Utils.Tests\MealPicker.Utils.Tests.csproj", "{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.TestUtils", "MealPicker.TestUtils\MealPicker.TestUtils.csproj", "{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.Async", "MealPicker.Async\MealPicker.Async.csproj", "{3D515FCA-97AB-43E8-82D5-F6DA5BB425DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.Async.Tests", "MealPicker.Async.Tests\MealPicker.Async.Tests.csproj", "{32370C70-CB0D-45F1-8405-6C1C28585B43}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPicker.UI.WPF", "MealPicker.UI.WPF\MealPicker.UI.WPF.csproj", "{65999F19-F8E9-4046-8AF3-613F49090214}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +27,42 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{09F11FEE-7F34-4683-A0C6-3B22624B475E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09F11FEE-7F34-4683-A0C6-3B22624B475E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09F11FEE-7F34-4683-A0C6-3B22624B475E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09F11FEE-7F34-4683-A0C6-3B22624B475E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDBDD9BF-F72E-4C12-96E4-1F5665E1B398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDBDD9BF-F72E-4C12-96E4-1F5665E1B398}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDBDD9BF-F72E-4C12-96E4-1F5665E1B398}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDBDD9BF-F72E-4C12-96E4-1F5665E1B398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDD0472E-40F6-4AF7-8906-3563213E7542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDD0472E-40F6-4AF7-8906-3563213E7542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDD0472E-40F6-4AF7-8906-3563213E7542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDD0472E-40F6-4AF7-8906-3563213E7542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F28947A-3C5B-4EF2-804E-17666C174EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F28947A-3C5B-4EF2-804E-17666C174EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F28947A-3C5B-4EF2-804E-17666C174EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F28947A-3C5B-4EF2-804E-17666C174EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBA2557-5464-461C-B9D0-206B72FDF15B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBA2557-5464-461C-B9D0-206B72FDF15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBA2557-5464-461C-B9D0-206B72FDF15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBA2557-5464-461C-B9D0-206B72FDF15B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9420E763-849B-4952-BAF0-57C95A475C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9420E763-849B-4952-BAF0-57C95A475C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9420E763-849B-4952-BAF0-57C95A475C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9420E763-849B-4952-BAF0-57C95A475C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{497FBD0A-445D-45AE-A7BD-E58E8CC4BBEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9CA39A-3A0F-4FE4-9369-0F9DB9EA6C9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D515FCA-97AB-43E8-82D5-F6DA5BB425DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D515FCA-97AB-43E8-82D5-F6DA5BB425DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D515FCA-97AB-43E8-82D5-F6DA5BB425DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D515FCA-97AB-43E8-82D5-F6DA5BB425DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32370C70-CB0D-45F1-8405-6C1C28585B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32370C70-CB0D-45F1-8405-6C1C28585B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32370C70-CB0D-45F1-8405-6C1C28585B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32370C70-CB0D-45F1-8405-6C1C28585B43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65999F19-F8E9-4046-8AF3-613F49090214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65999F19-F8E9-4046-8AF3-613F49090214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65999F19-F8E9-4046-8AF3-613F49090214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65999F19-F8E9-4046-8AF3-613F49090214}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

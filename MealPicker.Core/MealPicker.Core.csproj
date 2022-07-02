@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MealPicker.Async\MealPicker.Async.csproj" />
+    <ProjectReference Include="..\MealPicker.Encryption\MealPicker.Encryption.csproj" />
+    <ProjectReference Include="..\MealPicker.Utils\MealPicker.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
