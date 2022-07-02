@@ -3,12 +3,22 @@ using System.Net;
 using System.Text.Json;
 
 namespace MealPicker.Core.Services {
-    public class Requester {
+
+    /// <summary>
+    /// Handles GET calls for JSON objects.
+    /// </summary>
+    public class Requester { 
 
         public record struct FailResult(HttpStatusCode StatusCode, string? ReasonPhrase);
 
+        //todo - dispose HttpClient
         private readonly HttpClient client;
 
+        /// <summary>
+        /// Creates an instance of <see cref="Requester"/> with the given <see cref="HttpClient"/>. 
+        /// Every call will use the given instance.
+        /// </summary>
+        /// <param name="client"></param>
         public Requester(HttpClient client) {
             this.client = client;
         }
