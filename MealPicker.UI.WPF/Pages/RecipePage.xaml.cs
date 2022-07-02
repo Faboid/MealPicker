@@ -36,7 +36,7 @@ public partial class RecipePage : Page {
             var result = option.Result();
 
             if(result == Utils.Options.OptionResult.Some) {
-                RecipeView.Recipe = option.Or(new());
+                RecipeView.Recipe = new(option.Or(new()));
             }
 
             if(result == Utils.Options.OptionResult.Error || result == Utils.Options.OptionResult.None) {
