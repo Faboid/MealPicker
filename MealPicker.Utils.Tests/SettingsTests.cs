@@ -4,16 +4,14 @@ using Xunit;
 namespace MealPicker.Utils.Tests {
     public class SettingsTests : IDisposable {
 
-        readonly string path = PathBuilder.SettingsPath;
+        readonly static string path = PathBuilder.SettingsPath;
+        readonly Settings settings = new(path);
 
         [Theory]
         [InlineData("one", "isOne")]
         [InlineData("one", "here")] //checking if it overwrites it correctly
         [InlineData("three", "where")]
         public void CreateAndGet(string key, string value) {
-
-            //arrange
-            var settings = new Settings(path);
 
             //act
             settings.Set(key, value);
@@ -27,7 +25,6 @@ namespace MealPicker.Utils.Tests {
         public void ReturnsNoneIfKeyDoesNotExist() {
 
             //arrange
-            var settings = new Settings(path);
             string key = "someNotExistingKey";
 
             //act

@@ -19,19 +19,21 @@ public class Settings {
     public void Set(string key, string value) {
         string[] def = new string[] { $"not{key}", "" };
         
-        var lines = File.ReadAllLines(filePath).ToList();
-        var line = lines
+        var lines = File.ReadAllLines(filePath)
             .Select(x => x.Split(separator))
+            .ToList();
+
+        var line = lines
             .Where(x => x[0] == key)
             .FirstOrDefault(def);
 
         if(line != def) {
             line[1] = value;
         } else {
-            lines.Add($"{key}{separator}{value}");
+            lines.Add(new string[] {key, value });
         }
 
-        File.WriteAllLines(filePath, lines);
+        File.WriteAllLines(filePath, lines.Select(x => $"{x[0]}{separator}{x[1]}"));
     }
 
     public Option<string> Get(string key) {
