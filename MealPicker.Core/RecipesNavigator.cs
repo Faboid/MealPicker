@@ -19,17 +19,17 @@ public class RecipesNavigator {
     private readonly TimeoutCollection<RecipeModel> containerRecipes;
     private readonly IConnectionService connection;
 
-    public async Task<Option<RecipeModel>> NextAsync() {
+    public async Task<Option<RecipeModel, string>> NextAsync() {
 
         using var locked = await locker.GetLockAsync(50);
         if(!locked.Obtained) {
-            return Option.None<RecipeModel>();
+            return Option.None<RecipeModel, string>();
         }
 
         return await NoLock_NextAsync().ConfigureAwait(false);
     }
 
-    private async Task<Option<RecipeModel>> NoLock_NextAsync() {
+    private async Task<Option<RecipeModel, string>> NoLock_NextAsync() {
 
         while(containerRecipes.Count == 0) {
                     
@@ -39,8 +39,9 @@ public class RecipesNavigator {
 
             if(result == OptionResult.Error || result == OptionResult.None) {
                 var err = optionRecipes.OrError(new(System.Net.HttpStatusCode.BadRequest, "Unknown."));
-                logger.LogError($"The call to get random recipes has failed, code {err.StatusCode}. Reason: {err.ReasonPhrase}");
-                continue; //todo - return none or some kind of error
+                string msg = $"The call to get random recipes has failed, code {err.StatusCode}. Reason: {err.ReasonPhrase}";
+                logger.LogError(msg);
+                return msg;
             }
 
             var list = optionRecipes
@@ -53,7 +54,10 @@ public class RecipesNavigator {
 
         }
 
-        return containerRecipes.Next();
+        return containerRecipes.Next().Match(
+            some => some,
+            () => Option.None<RecipeModel, string>()
+        );
 
     }
 

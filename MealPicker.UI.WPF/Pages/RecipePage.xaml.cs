@@ -1,4 +1,5 @@
 ﻿using MealPicker.Core;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ namespace MealPicker.UI.WPF.Pages;
 public partial class RecipePage : Page {
 
     private readonly RecipesNavigator navigator;
+    public event EventHandler<string>? OnSendMessage;
 
     public RecipePage(RecipesNavigator navigator) {
         InitializeComponent();
@@ -31,10 +33,15 @@ public partial class RecipePage : Page {
             RandomButton.IsEnabled = false;
 
             var option = await navigator.NextAsync();
-            RecipeView.Recipe = option.Match(
-                some => some,
-                () => RecipeView.Recipe
-            );
+            var result = option.Result();
+
+            if(result == Utils.Options.OptionResult.Some) {
+                RecipeView.Recipe = option.Or(new());
+            }
+
+            if(result == Utils.Options.OptionResult.Error || result == Utils.Options.OptionResult.None) {
+                OnSendMessage?.Invoke(this, option.OrError("The call to get random recipes has failed for an unknown reason."));
+            }
 
         } finally {
 

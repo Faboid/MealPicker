@@ -26,10 +26,14 @@ namespace MealPicker.UI.WPF {
             ShowMessageBox(e);
         }
 
-        private void OnConnectionObtained(object? sender, IConnectionService e) {
-            RecipesNavigator nav = new(logger, e);
+        private void OnConnectionObtained(object? sender, (KeyHandlerPage handlerPage, IConnectionService cnnService) e) {
+            e.handlerPage.OnSendMessage -= Page_OnSendMessage;
+            e.handlerPage.CloseAndReturn -= OnConnectionObtained;
+
+            RecipesNavigator nav = new(logger, e.cnnService);
             Dispatcher.Invoke(() => {
                 RecipePage page = new(nav);
+                page.OnSendMessage += Page_OnSendMessage;
                 PageContainer.Navigate(page);
             });
         }

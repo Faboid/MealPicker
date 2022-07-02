@@ -17,7 +17,7 @@ namespace MealPicker.UI.WPF.Pages {
 
         private IForm current;
         public event EventHandler<string>? OnSendMessage;
-        public event EventHandler<IConnectionService>? CloseAndReturn;
+        public event EventHandler<(KeyHandlerPage, IConnectionService)>? CloseAndReturn;
 
         private readonly ILogger logger;
 
@@ -76,7 +76,7 @@ namespace MealPicker.UI.WPF.Pages {
                         () => throw new Exception()
                     );
 
-                CloseAndReturn?.Invoke(this, conn);
+                CloseAndReturn?.Invoke(this, (this, conn));
 
             } finally {
                 
