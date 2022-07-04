@@ -1,9 +1,18 @@
 ﻿namespace MealPicker.Utils.Options;
 
+/// <summary>
+/// Represents an Error <see cref="IOption{TValue, TError}"/>.
+/// </summary>
+/// <typeparam name="TValue"></typeparam>
+/// <typeparam name="TError"></typeparam>
 public struct Error<TValue, TError> : IOption<TValue, TError> {
 
     private readonly TError err;
 
+    /// <summary>
+    /// Initializes <see cref="Error{TValue, TError}"/> with the given <paramref name="error"/>.
+    /// </summary>
+    /// <param name="error"></param>
     public Error(TError error) {
         err = error;
     }

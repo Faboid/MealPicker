@@ -1,7 +1,14 @@
 ﻿namespace MealPicker.Utils.Options;
 
+/// <summary>
+/// Represents a None <see cref="IOption{TValue}"/>.
+/// </summary>
+/// <typeparam name="TValue"></typeparam>
 public struct None<TValue> : IOption<TValue> {
 
+    /// <summary>
+    /// Initializes <see cref="None{TValue}"/>.
+    /// </summary>
     public None() { }
 
     public OptionResult Result() => OptionResult.None;
@@ -12,8 +19,15 @@ public struct None<TValue> : IOption<TValue> {
 
 }
 
+/// <summary>
+/// Represents a None <see cref="IOption{TValue, TError}"/>.
+/// </summary>
+/// <typeparam name="TValue"></typeparam>
 public struct None<TValue, TError> : IOption<TValue, TError> {
 
+    /// <summary>
+    /// Initializes <see cref="None{TValue, TError}"/>.
+    /// <param name="value"></param>
     public None() { }
 
     public OptionResult Result() => OptionResult.None;
