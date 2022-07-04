@@ -1,4 +1,8 @@
 ﻿namespace MealPicker.Encryption.Random {
+
+    /// <summary>
+    /// Provides a way to keep an integer value in a given range. Adding over the maximum value will loop the value back to the minimum value.
+    /// </summary>
     internal class IntRange {
 
         readonly int min;
@@ -28,6 +32,11 @@
             Add(valueOverMin);
         }
 
+        /// <summary>
+        /// Adds <paramref name="value"/> to the current <see cref="Value"/>. If <see cref="Value"/> gets over <see cref="max"/>, it will be lowered to <see cref="min"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>This instance of <see cref="IntRange"/> with the added <paramref name="value"/>.</returns>
         public IntRange Add(int value) {
             var range = max - min;
             var remainder = value % range;
