@@ -1,5 +1,8 @@
 ﻿namespace MealPicker.Utils;
 
+/// <summary>
+/// Provides static paths to files.
+/// </summary>
 public static class PathBuilder {
 
     /// <summary>
