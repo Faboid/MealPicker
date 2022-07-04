@@ -2,6 +2,9 @@
 
 namespace MealPicker.UI.WPF.Resources.Colors.Themes;
 
+/// <summary>
+/// Represents a dark theme.
+/// </summary>
 public class DarkTheme : IColorTheme {
 
     public SolidColorBrush BG_100 { get; } = "#000000".ToSolidBrush();

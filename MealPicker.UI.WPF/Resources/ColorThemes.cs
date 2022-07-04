@@ -51,6 +51,9 @@ namespace MealPicker.UI.WPF.Resources {
         private string Highlight_200 { get; } = nameof(IColorTheme.Highlight_200);
         private string Disabled_100 { get; } = nameof(IColorTheme.Disabled_100);
 
+        /// <summary>
+        /// Initializes <see cref="ColorThemes"/> and sets the current theme to the last used one(or the default).
+        /// </summary>
         public ColorThemes() {
             InitializeComponent();
             dict = this;
@@ -60,6 +63,10 @@ namespace MealPicker.UI.WPF.Resources {
             Apply(theme);
         }
 
+        /// <summary>
+        /// Initializes <see cref="ColorThemes"/> with the given <paramref name="dictionary"/>. Used privately to set up <see cref="Painter"/>.
+        /// </summary>
+        /// <param name="dictionary"></param>
         private ColorThemes(ResourceDictionary dictionary) {
             dict = dictionary;
             Apply(0);
@@ -70,6 +77,11 @@ namespace MealPicker.UI.WPF.Resources {
         private readonly Settings settings = new();
         private readonly ResourceDictionary dict;
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// The given <paramref name="theme"/> is then saved locally and used as default on the next session.
+        /// </summary>
+        /// <param name="theme"><inheritdoc/></param>
         [MemberNotNull(nameof(_theme))]
         public void Apply(ColorTheme theme) {
             _theme = theme switch {
@@ -105,8 +117,17 @@ namespace MealPicker.UI.WPF.Resources {
 
     }
 
+    /// <summary>
+    /// Represents an object that can change the current color scheme.
+    /// </summary>
     public interface IColorThemePainter {
+
+        /// <summary>
+        /// Applies <paramref name="theme"/> to the UI.
+        /// </summary>
+        /// <param name="theme">The theme to apply.</param>
         public void Apply(ColorTheme theme);
+
     }
 
 }
