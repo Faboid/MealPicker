@@ -4,25 +4,37 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace MealPicker.UI.WPF.Views {
+
     /// <summary>
-    /// Interaction logic for RecipeView.xaml
+    /// Represents a view for <see cref="RecipeModel"/>.
     /// </summary>
     public partial class RecipeView : UserControl {
+
+        /// <summary>
+        /// Initializes <see cref="RecipeView"/>.
+        /// </summary>
         public RecipeView() {
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty RecipeProperty =
+        private static readonly DependencyProperty RecipeProperty =
             DependencyProperty.Register("Recipe", typeof(RecipeModel), typeof(UserControl));
 
+        /// <summary>
+        /// The current recipe to show.
+        /// </summary>
         public RecipeModel Recipe {
             get => (RecipeModel)GetValue(RecipeProperty);
             set => SetValue(RecipeProperty, value);
         }
 
+        /// <summary>
+        /// Follows the current <see cref="Recipe.SourceUrl"/> by opening a browser tab.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RecipeLinkButton_Click(object sender, RoutedEventArgs e) {
 
             if(Recipe?.SourceUrl == null || !Uri.IsWellFormedUriString(Recipe.SourceUrl, UriKind.Absolute)) {
