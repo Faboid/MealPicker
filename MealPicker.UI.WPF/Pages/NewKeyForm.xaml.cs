@@ -8,21 +8,30 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace MealPicker.UI.WPF.Pages {
+
     /// <summary>
-    /// Interaction logic for NewKeyForm.xaml
+    /// Used to request a new API key from the user.
     /// </summary>
     public partial class NewKeyForm : Page, IForm {
 
+        /// <summary>
+        /// Is fired to send a message to the user via "sending it up the chain" to the main window.
+        /// </summary>
         public event EventHandler<string>? OnSendMessage;
+
         private readonly ILogger logger;
 
+        /// <summary>
+        /// Initializes a new <see cref="NewKeyForm"/> with the given <see cref="ILogger"/>.
+        /// </summary>
+        /// <param name="logger"></param>
         public NewKeyForm(ILogger logger) {
             InitializeComponent();
             this.logger = logger;
         }
 
         public async Task<Option<IConnectionService>> ConfirmAsync() {
-
+            
             if(PasswordTextBox.Text != ConfirmPasswordTextBox.Text) {
                 OnSendMessage?.Invoke(this, "The passwords must be equal.");
                 return Option.None<IConnectionService>();
@@ -40,6 +49,11 @@ namespace MealPicker.UI.WPF.Pages {
                 );
         }
 
+        /// <summary>
+        /// Converts <paramref name="failResult"/> to an user-friendly error message.
+        /// </summary>
+        /// <param name="failResult"></param>
+        /// <returns></returns>
         private Option<IConnectionService> DisplayErrors(KeyHandler.KeyError failResult) {
 
             var errorMessage = failResult switch {

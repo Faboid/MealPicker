@@ -1,22 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace MealPicker.UI.WPF.Resources.Colors {
     internal static class ColorExtensions {
 
+        /// <summary>
+        /// Sets the <paramref name="brush"/>'s opacity to <paramref name="value"/>.
+        /// </summary>
+        /// <param name="brush"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static SolidColorBrush WithOpacity(this SolidColorBrush brush, double value) {
             brush.Opacity = value;
             return brush;
         }
 
+        /// <summary>
+        /// Creates a <see cref="SolidColorBrush"/> representation of the given <paramref name="hex"/> value. <br/><br/>
+        /// Throws <see cref="ArgumentOutOfRangeException"/> when the length of <paramref name="hex"/> is less than 6 or more than 8(9 if it starts with #).
+        /// </summary>
+        /// <param name="hex"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static SolidColorBrush ToSolidBrush(this string hex) {
             return new(hex.ToColor());
         }
 
+        /// <summary>
+        /// Creates a <see cref="Color"/> representation of the given <paramref name="hex"/> value. <br/><br/>
+        /// Throws <see cref="ArgumentOutOfRangeException"/> when the length of <paramref name="hex"/> is less than 6 or more than 8(9 if it starts with #).
+        /// </summary>
+        /// <param name="hex"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static Color ToColor(this string hex) {
             
             if(hex[0] == '#') {
@@ -44,7 +60,7 @@ namespace MealPicker.UI.WPF.Resources.Colors {
                 return color;
             }
 
-            throw new ArgumentException($"The given hex ({hex}) is not valid.", nameof(hex));
+            throw new ArgumentOutOfRangeException($"The given hex ({hex}) is bigger than the maximum hex size.", nameof(hex));
         }
 
     }

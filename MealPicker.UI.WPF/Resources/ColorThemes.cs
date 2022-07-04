@@ -8,14 +8,23 @@ using System.Windows.Media;
 
 namespace MealPicker.UI.WPF.Resources {
 
+    /// <summary>
+    /// A list with all supported color themes.
+    /// </summary>
     public enum ColorTheme {
         Dark,
         Light,
         Coffee,
     }
 
+    /// <summary>
+    /// Manages the color schemes.
+    /// </summary>
     public partial class ColorThemes : ResourceDictionary, IColorThemePainter {
 
+        /// <summary>
+        /// Returns a singleton of the <see cref="IColorThemePainter"/> interface to provide methods to change the current theme.
+        /// </summary>
         public static IColorThemePainter Painter => BrushesDictionary.Value;
 
         private static Lazy<ColorThemes> BrushesDictionary { get; } = new Lazy<ColorThemes>(() => new(GetResourceDictionary));
@@ -27,23 +36,24 @@ namespace MealPicker.UI.WPF.Resources {
             .Where(x => x.Source.AbsoluteUri == "pack://application:,,,/Resources/ColorThemes.xaml")
             .First();
 
-        public string BG_100 { get; } = nameof(IColorTheme.BG_100);
-        public string BG_200 { get; } = nameof(IColorTheme.BG_200);
-        public string BG_300 { get; } = nameof(IColorTheme.BG_300);
-        public string BG_400 { get; } = nameof(IColorTheme.BG_400);
+        private string BG_100 { get; } = nameof(IColorTheme.BG_100);
+        private string BG_200 { get; } = nameof(IColorTheme.BG_200);
+        private string BG_300 { get; } = nameof(IColorTheme.BG_300);
+        private string BG_400 { get; } = nameof(IColorTheme.BG_400);
 
-        public string FG_100 { get; } = nameof(IColorTheme.FG_100);
-        public string FG_200 { get; } = nameof(IColorTheme.FG_200);
-        public string FG_300 { get; } = nameof(IColorTheme.FG_300);
-        public string FG_400 { get; } = nameof(IColorTheme.FG_400);
+        private string FG_100 { get; } = nameof(IColorTheme.FG_100);
+        private string FG_200 { get; } = nameof(IColorTheme.FG_200);
+        private string FG_300 { get; } = nameof(IColorTheme.FG_300);
+        private string FG_400 { get; } = nameof(IColorTheme.FG_400);
 
-        public string Primary_100 { get; } = nameof(IColorTheme.Primary_100);
-        public string Highlight_100 { get; } = nameof(IColorTheme.Highlight_100);
-        public string Highlight_200 { get; } = nameof(IColorTheme.Highlight_200);
-        public string Disabled_100 { get; } = nameof(IColorTheme.Disabled_100);
+        private string Primary_100 { get; } = nameof(IColorTheme.Primary_100);
+        private string Highlight_100 { get; } = nameof(IColorTheme.Highlight_100);
+        private string Highlight_200 { get; } = nameof(IColorTheme.Highlight_200);
+        private string Disabled_100 { get; } = nameof(IColorTheme.Disabled_100);
 
-
-
+        /// <summary>
+        /// Initializes <see cref="ColorThemes"/> and sets the current theme to the last used one(or the default).
+        /// </summary>
         public ColorThemes() {
             InitializeComponent();
             dict = this;
@@ -53,6 +63,10 @@ namespace MealPicker.UI.WPF.Resources {
             Apply(theme);
         }
 
+        /// <summary>
+        /// Initializes <see cref="ColorThemes"/> with the given <paramref name="dictionary"/>. Used privately to set up <see cref="Painter"/>.
+        /// </summary>
+        /// <param name="dictionary"></param>
         private ColorThemes(ResourceDictionary dictionary) {
             dict = dictionary;
             Apply(0);
@@ -63,6 +77,11 @@ namespace MealPicker.UI.WPF.Resources {
         private readonly Settings settings = new();
         private readonly ResourceDictionary dict;
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// The given <paramref name="theme"/> is then saved locally and used as default on the next session.
+        /// </summary>
+        /// <param name="theme"><inheritdoc/></param>
         [MemberNotNull(nameof(_theme))]
         public void Apply(ColorTheme theme) {
             _theme = theme switch {
@@ -98,8 +117,17 @@ namespace MealPicker.UI.WPF.Resources {
 
     }
 
+    /// <summary>
+    /// Represents an object that can change the current color scheme.
+    /// </summary>
     public interface IColorThemePainter {
+
+        /// <summary>
+        /// Applies <paramref name="theme"/> to the UI.
+        /// </summary>
+        /// <param name="theme">The theme to apply.</param>
         public void Apply(ColorTheme theme);
+
     }
 
 }

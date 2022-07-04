@@ -6,11 +6,21 @@ using MealPicker.Utils.Options;
 
 namespace MealPicker.Core;
 
+/// <summary>
+/// Manages requests and validation of recipes.
+/// </summary>
 public class RecipesNavigator {
 
+    /// <summary>
+    /// Creates an instance of <see cref="RecipesNavigator"/> with the given <see cref="ILogger"/> and <see cref="IConnectionService"/>.
+    /// </summary>
+    /// <param name="logger"></param>
+    /// <param name="connection"></param>
     public RecipesNavigator(ILogger logger, IConnectionService connection) {
         this.connection = connection;
         this.logger = logger;
+
+        //to respects the Spoonacular API's terms, all cached data needs to be deleted no later than one hour after getting it.
         containerRecipes = new(logger, new List<RecipeModel>(), TimeSpan.FromHours(1));
     }
 
@@ -19,6 +29,10 @@ public class RecipesNavigator {
     private readonly TimeoutCollection<RecipeModel> containerRecipes;
     private readonly IConnectionService connection;
 
+    /// <summary>
+    /// Requests the next recipe asynchronously.
+    /// </summary>
+    /// <returns>An option with <see cref="RecipeModel"/> on success and a <see cref="string"/> error message on failure.</returns>
     public async Task<Option<RecipeModel, string>> NextAsync() {
 
         using var locked = await locker.GetLockAsync(50);

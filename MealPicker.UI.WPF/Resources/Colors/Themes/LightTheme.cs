@@ -3,6 +3,9 @@ using System.Windows.Media;
 
 namespace MealPicker.UI.WPF.Resources.Colors.Themes;
 
+/// <summary>
+/// Represents a light theme.
+/// </summary>
 public class LightTheme : IColorTheme {
     public SolidColorBrush BG_100 { get; } = "#e1e1e1".ToSolidBrush();
     public SolidColorBrush BG_200 { get; } = "#ececec".ToSolidBrush();

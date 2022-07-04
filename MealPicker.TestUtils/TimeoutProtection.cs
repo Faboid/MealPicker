@@ -1,21 +1,41 @@
 ﻿namespace MealPicker.TestUtils {
+
+    /// <summary>
+    /// Provides a set of methods to ensure tests don't deadlock.
+    /// </summary>
     public static class TimeoutProtection {
 
+        /// <summary>
+        /// Throws <see cref="TimeoutException"/> if <paramref name="task"/> takes longer than <paramref name="milliseconds"/> to complete.
+        /// </summary>
+        /// <exception cref="TimeoutException"></exception>
         public static async Task<T> ThrowIfTakesOver<T>(this Task<T> task, int milliseconds) {
             await task.TimeoutIfOver(milliseconds);
             return await task;
         }
 
+        /// <summary>
+        /// Throws <see cref="TimeoutException"/> if <paramref name="task"/> takes longer than <paramref name="milliseconds"/> to complete.
+        /// </summary>
+        /// <exception cref="TimeoutException"></exception>
         public static async Task ThrowIfTakesOver(this Task task, int milliseconds) {
             await task.TimeoutIfOver(milliseconds);
             await task;
         }
 
+        /// <summary>
+        /// Throws <see cref="TimeoutException"/> if <paramref name="task"/> takes longer than <paramref name="milliseconds"/> to complete.
+        /// </summary>
+        /// <exception cref="TimeoutException"></exception>
         public static async Task<T> ThrowIfTakesOver<T>(this ValueTask<T> task, int milliseconds) {
             await task.AsTask().TimeoutIfOver(milliseconds);
             return await task;
         }
 
+        /// <summary>
+        /// Throws <see cref="TimeoutException"/> if <paramref name="task"/> takes longer than <paramref name="milliseconds"/> to complete.
+        /// </summary>
+        /// <exception cref="TimeoutException"></exception>
         public static async Task ThrowIfTakesOver(this ValueTask task, int milliseconds) {
             await task.AsTask().TimeoutIfOver(milliseconds);
             await task;

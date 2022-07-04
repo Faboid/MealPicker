@@ -1,6 +1,10 @@
 ﻿using System.Windows.Media;
 
 namespace MealPicker.UI.WPF.Resources.Colors.Themes {
+
+    /// <summary>
+    /// Represents a theme with a coffee style.
+    /// </summary>
     internal class CoffeeTheme : IColorTheme {
 
         public SolidColorBrush BG_100 { get; } = "#0E0504".ToSolidBrush();

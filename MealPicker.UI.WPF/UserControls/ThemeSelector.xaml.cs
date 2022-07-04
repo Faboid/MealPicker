@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace MealPicker.UI.WPF.UserControls {
     /// <summary>
-    /// Interaction logic for ThemeSelector.xaml
+    /// Represents a <see cref="ComboBox"/> that allows selecting the current <see cref="ColorTheme"/>.
     /// </summary>
     public partial class ThemeSelector : UserControl {
 

@@ -3,13 +3,29 @@ using MealPicker.Utils.Options;
 
 namespace MealPicker.TestUtils;
 
+/// <summary>
+/// Provides sugar to assert <see cref="Option{TValue}"/> and <see cref="Option{TValue, TError}"/>.
+/// </summary>
 public static class OptionAsserts {
 
+    /// <summary>
+    /// Asserts that <paramref name="option"/>'s <see cref="Option{TValue}.Result"/> equals <paramref name="expected"/>.
+    /// </summary>
+    /// <typeparam name="TSome"></typeparam>
+    /// <param name="option"></param>
+    /// <param name="expected"></param>
     public static void Is<TSome>(this Option<TSome> option, OptionResult expected) {
         var actual = option.Result();
         Assert(expected, actual);
     }
 
+    /// <summary>
+    /// Asserts that <paramref name="option"/>'s <see cref="Option{TValue, TError}.Result"/> equals <paramref name="expected"/>.
+    /// </summary>
+    /// <typeparam name="TSome"></typeparam>
+    /// <typeparam name="TError"></typeparam>
+    /// <param name="option"></param>
+    /// <param name="expected"></param>
     public static void Is<TSome, TError>(this Option<TSome, TError> option, OptionResult expected) {
         var actual = option.Result();
         Assert(expected, actual);
@@ -23,6 +39,9 @@ public static class OptionAsserts {
 
 }
 
+/// <summary>
+/// Custom exception to distinguish the assertion failure to any other exception.
+/// </summary>
 internal class WrongResultAssertException : Exception {
     public WrongResultAssertException(string? message) : base(message) { }
 }

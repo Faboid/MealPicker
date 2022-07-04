@@ -1,9 +1,19 @@
 ﻿namespace MealPicker.Utils; 
 
+/// <summary>
+/// Implements logging based on a single file.
+/// </summary>
 public class Logger : ILogger {
     
+    /// <summary>
+    /// Initializes <see cref="Logger"/> with the default path.
+    /// </summary>
     public Logger() : this(Path.Combine(PathBuilder.GetWorkingDirectory, "Logs.txt")) { }
 
+    /// <summary>
+    /// Initializes <see cref="Logger"/> with a custom file.
+    /// </summary>
+    /// <param name="logFilePath"></param>
     public Logger(string logFilePath) {
         logFile = logFilePath;
         Open();
@@ -23,6 +33,7 @@ public class Logger : ILogger {
     public virtual Task LogErrorAsync(string message) => LogAsync(ILogger.Level.Error, message);
     public virtual Task LogWarningAsync(string message) => LogAsync(ILogger.Level.Warning, message);
     public virtual Task LogInfoAsync(string message) => LogAsync(ILogger.Level.Info, message);
+    public virtual Task LogDebugAsync(string message) => LogAsync(ILogger.Level.Debug, message);
 
     /// <summary>
     /// <inheritdoc/>
@@ -35,7 +46,14 @@ public class Logger : ILogger {
     public virtual void LogError(string message) => Log(ILogger.Level.Error, message);
     public virtual void LogWarning(string message) => Log(ILogger.Level.Warning, message);
     public virtual void LogInfo(string message) => Log(ILogger.Level.Info, message);
+    public virtual void LogDebug(string message) => Log(ILogger.Level.Debug, message);
 
+    /// <summary>
+    /// Formats the message and level in a consistent format.
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="message"></param>
+    /// <returns></returns>
     protected virtual string Build(ILogger.Level level, string message) => $"{DateTime.Now} - {level}: {message}";
 
     /// <summary>

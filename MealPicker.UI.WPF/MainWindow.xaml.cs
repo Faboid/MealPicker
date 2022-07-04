@@ -5,13 +5,17 @@ using MealPicker.Utils;
 using System.Windows;
 
 namespace MealPicker.UI.WPF {
+
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// The main window of the application. Everything is accessed through pages in its frame.
     /// </summary>
     public partial class MainWindow : Window {
 
         private readonly ILogger logger = new Logger();
 
+        /// <summary>
+        /// Initializes <see cref="MainWindow"/>.
+        /// </summary>
         public MainWindow() {
             InitializeComponent();
 
@@ -39,11 +43,20 @@ namespace MealPicker.UI.WPF {
             });
         }
 
+        /// <summary>
+        /// Displays the message box with a custom message.
+        /// </summary>
+        /// <param name="message"></param>
         private void ShowMessageBox(string message) {
             MessageBoxMessageTextBlock.Text = message;
             MessageBox.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Resets the message box's text and closes it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MessageBoxOkButton_Click(object sender, RoutedEventArgs e) {
             MessageBoxMessageTextBlock.Text = "";
             MessageBox.Visibility = Visibility.Hidden;
