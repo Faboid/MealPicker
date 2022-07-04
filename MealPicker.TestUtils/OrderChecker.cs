@@ -1,5 +1,8 @@
 ﻿namespace MealPicker.TestUtils;
 
+/// <summary>
+/// Used to ensure the operations are executed in a specific order.
+/// </summary>
 public class OrderChecker : IDisposable {
 
     public int CurrentOperation { get; private set; } = 0;
@@ -72,13 +75,18 @@ public class OrderChecker : IDisposable {
     }
 
     /// <summary>
-    ///This method represents a point in code that shouldn't be reached: throws <see cref="NoRunException"/> and does nothing else.
+    /// This method represents a point in code that shouldn't be reached: throws <see cref="NoRunException"/> and does nothing else.
     /// </summary>
     /// <exception cref="NoRunException"></exception>
     public static void Never() {
         throw new NoRunException("This point in code shouldn't have been reached.");
     }
 
+    /// <summary>
+    /// This method represents a point in code that shouldn't be reached: throws <see cref="NoRunException"/> with a custom <paramref name="message"/> and does nothing else.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <exception cref="NoRunException"></exception>
     public static void Never(string message) {
         throw new NoRunException(message);
     }
