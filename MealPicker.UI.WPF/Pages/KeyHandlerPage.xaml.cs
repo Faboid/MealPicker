@@ -8,13 +8,22 @@ using System.Windows;
 using System.Windows.Controls;
 
 namespace MealPicker.UI.WPF.Pages {
+
     /// <summary>
-    /// Interaction logic for KeyHandlerPage.xaml
+    /// This page is to manage the usage of the API key.
     /// </summary>
     public partial class KeyHandlerPage : Page {
 
         private IForm current;
+
+        /// <summary>
+        /// Is fired to send a message to the user via "sending it up the chain" to the main window.
+        /// </summary>
         public event EventHandler<string>? OnSendMessage;
+
+        /// <summary>
+        /// Is fired when the <see cref="KeyHandlerPage"/> successfully builds a working <see cref="IConnectionService"/> to close the page and return <see cref="IConnectionService"/>.
+        /// </summary>
         public event EventHandler<(KeyHandlerPage, IConnectionService)>? CloseAndReturn;
 
         private readonly ILogger logger;
@@ -47,6 +56,9 @@ namespace MealPicker.UI.WPF.Pages {
             NewKeyFormHandler();
         }
 
+        /// <summary>
+        /// Starts a <see cref="NewKeyForm"/> to ask the user for a new API key.
+        /// </summary>
         [MemberNotNull(nameof(current))]
         private void NewKeyFormHandler() {
             var form = new NewKeyForm(logger);

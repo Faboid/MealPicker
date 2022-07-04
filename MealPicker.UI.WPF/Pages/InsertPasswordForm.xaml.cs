@@ -10,12 +10,23 @@ using System.Windows.Controls;
 namespace MealPicker.UI.WPF.Pages; 
 
 /// <summary>
-/// Interaction logic for InsertPasswordForm.xaml
+/// This page requests for a password to decrypt and validate the previously stored API key.
 /// </summary>
 public partial class InsertPasswordForm : Page, IForm {
 
+    /// <summary>
+    /// Is fired when the file with the key is missing or empty.
+    /// </summary>
     public event EventHandler? OnMissingKey;
+
+    /// <summary>
+    /// Is fired when the stored API key is not valid.
+    /// </summary>
     public event EventHandler? OnExpiredKey;
+
+    /// <summary>
+    /// Is fired to send a message to the user via "sending it up the chain" to the main window.
+    /// </summary>
     public event EventHandler<string>? OnSendMessage;
 
     private readonly ILogger logger;

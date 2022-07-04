@@ -7,13 +7,21 @@ using System.Windows.Controls;
 namespace MealPicker.UI.WPF.Pages; 
 
 /// <summary>
-/// Interaction logic for RecipePage.xaml
+/// Used to get random recipes and showcase them to the user.
 /// </summary>
 public partial class RecipePage : Page {
 
     private readonly RecipesNavigator navigator;
+
+    /// <summary>
+    /// Is fired to send a message to the user via "sending it up the chain" to the main window.
+    /// </summary>
     public event EventHandler<string>? OnSendMessage;
 
+    /// <summary>
+    /// Initializes <see cref="RecipePage"/> with the given <paramref name="navigator"/>.
+    /// </summary>
+    /// <param name="navigator"></param>
     public RecipePage(RecipesNavigator navigator) {
         InitializeComponent();
         this.navigator = navigator;
@@ -28,6 +36,10 @@ public partial class RecipePage : Page {
         await SetNextRecipe();
     }
 
+    /// <summary>
+    /// Requests a new recipe from <see cref="navigator"/>.
+    /// </summary>
+    /// <returns></returns>
     private async Task SetNextRecipe() {
         try {
             RandomButton.IsEnabled = false;
