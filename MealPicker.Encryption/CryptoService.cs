@@ -5,24 +5,54 @@ using System.Text;
 
 [assembly: InternalsVisibleTo("MealPicker.Encryption.Tests")]
 namespace MealPicker.Encryption {
+
+    /// <summary>
+    /// Handles encryption and decryption of strings by using versioning, custom-length salt, and a key.
+    /// </summary>
     public class CryptoService : ICryptoService, IDisposable {
-        //This class is built upon a derived version of "A Gazhal"'s answer https://stackoverflow.com/a/27484425/16018958
+        //The encryption methods are built upon a derived version of "A Gazhal"'s answer https://stackoverflow.com/a/27484425/16018958
 
         private const string currentVersion = "1.00";
         private readonly Versioning versioning;
         private readonly SaltGenerator saltGenerator;
         private readonly Key key;
 
+        /// <summary>
+        /// Creates an instance of <see cref="CryptoService"/> with the given <paramref name="password"/>. Then, clears the given password with /0.
+        /// </summary>
+        /// <param name="password"></param>
         public CryptoService(char[] password) : this(password, currentVersion) { }
+
+        /// <summary>
+        /// Creates an instance of <see cref="CryptoService"/> with the given <paramref name="password"/> and sets the current version to <paramref name="version"/>. 
+        /// Lastly, clears the given password by setting every value to \0.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="version"></param>
         internal CryptoService(char[] password, string version) : this(new Key(password), version) { }
+
+        /// <summary>
+        /// Creates an instance of <see cref="CryptoService"/> with the given <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key"></param>
         public CryptoService(Key key) : this(key, currentVersion) { }
 
+        /// <summary>
+        /// Creates an instance of <see cref="CryptoService"/> with the given <paramref name="key"/> and sets the current version to <paramref name="version"/>.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="version"></param>
         internal CryptoService(Key key, string version) {
             this.key = key;
             saltGenerator = new SaltGenerator(key.Get());
             versioning = new Versioning(version);
         }
 
+        /// <summary>
+        /// Encrypts <paramref name="plainText"/> using the given <see cref="key"/> and applies a custom salt and version to it. Subsequent decryption must use the same password.
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
         public string Encrypt(string plainText) {
 
             byte[] bytes = Encoding.Unicode.GetBytes(plainText);
@@ -37,6 +67,15 @@ namespace MealPicker.Encryption {
             return Convert.ToBase64String(output);
         }
 
+        /// <summary>
+        /// Decrypts <paramref name="cipherText"/> using the given <see cref="key"/>. Reads its version to ensure backward compatibility. <br/><br/>
+        /// Attempting decryption of text that wasn't encrypted with <see cref="Encrypt(string)"/> will result in <see cref="ArgumentException"/>. <br/>
+        /// Attempting decryption of text that was encrypted with a different password will result in <see cref="CryptographicException"/>.
+        /// </summary>
+        /// <param name="cipherText"></param>
+        /// <returns>A decrypted string.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="CryptographicException"></exception>
         public string Decrypt(string cipherText) {
 
             string version = Versioning.ExtractVersion(ref cipherText);
