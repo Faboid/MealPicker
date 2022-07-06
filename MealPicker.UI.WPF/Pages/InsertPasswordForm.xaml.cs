@@ -25,6 +25,11 @@ public partial class InsertPasswordForm : Page, IForm {
     public event EventHandler? OnExpiredKey;
 
     /// <summary>
+    /// Is fired when the user requests to change API key.
+    /// </summary>
+    public event EventHandler? OnChangeAPIRequest;
+
+    /// <summary>
     /// Is fired to send a message to the user via "sending it up the chain" to the main window.
     /// </summary>
     public event EventHandler<string>? OnSendMessage;
@@ -70,4 +75,7 @@ public partial class InsertPasswordForm : Page, IForm {
         return Option.None<IConnectionService>();
     }
 
+    private void ResetKeyButton_Click(object sender, System.Windows.RoutedEventArgs e) {
+        OnChangeAPIRequest?.Invoke(this, EventArgs.Empty);
+    }
 }

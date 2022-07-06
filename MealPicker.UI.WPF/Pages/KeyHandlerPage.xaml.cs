@@ -41,9 +41,14 @@ namespace MealPicker.UI.WPF.Pages {
             form.OnSendMessage += (a, b) => OnSendMessage?.Invoke(a, b);
             form.OnMissingKey += Form_OnMissingKey;
             form.OnExpiredKey += Form_OnExpiredKey;
+            form.OnChangeAPIRequest += Form_OnChangeAPIRequest;
 
             current = form;
             PageContainer.Navigate(current);
+        }
+
+        private void Form_OnChangeAPIRequest(object? sender, EventArgs e) {
+            NewKeyFormHandler();
         }
 
         private void Form_OnExpiredKey(object? sender, EventArgs e) {
@@ -64,6 +69,7 @@ namespace MealPicker.UI.WPF.Pages {
             var form = new NewKeyForm(logger);
             form.OnSendMessage += (a, b) => OnSendMessage?.Invoke(a, b);
             current = form;
+            PageContainer.NavigationService.RemoveBackEntry();
             PageContainer.Navigate(current);
         }
 
