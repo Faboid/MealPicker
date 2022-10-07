@@ -1,11 +1,6 @@
-﻿using MealPicker.UI.WPF.Stores;
-using MealPicker.UI.WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MealPicker.UI.WPF.HostBuilders;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Windows;
 
 namespace MealPicker.UI.WPF {
@@ -14,16 +9,20 @@ namespace MealPicker.UI.WPF {
     /// </summary>
     public partial class App : Application {
 
-        public App() {
+        private readonly IHost _host;
 
+        public App() {
+            _host = Host
+                .CreateDefaultBuilder()
+                .AddStores()
+                .AddMainWindow()
+                .AddViewModels()
+                .Build();
         }
 
         protected override void OnStartup(StartupEventArgs e) {
 
-            var navigationStore = new NavigationStore();
-            var window = new MainWindow();
-            window.DataContext = new MainViewModel(navigationStore, window);
-            MainWindow = window;
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
 
             base.OnStartup(e);
