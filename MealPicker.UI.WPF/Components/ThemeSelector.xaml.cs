@@ -2,7 +2,7 @@
 using MealPicker.Utils;
 using System.Windows.Controls;
 
-namespace MealPicker.UI.WPF.UserControls {
+namespace MealPicker.UI.WPF.Components {
     /// <summary>
     /// Represents a <see cref="ComboBox"/> that allows selecting the current <see cref="ColorTheme"/>.
     /// </summary>
