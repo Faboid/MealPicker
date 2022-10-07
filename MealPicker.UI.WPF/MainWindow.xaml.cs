@@ -62,21 +62,5 @@ namespace MealPicker.UI.WPF {
             MessageBox.Visibility = Visibility.Hidden;
         }
 
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e) {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void ResizeButton_Click(object sender, RoutedEventArgs e) {
-            WindowState = WindowState switch {
-                WindowState.Normal => WindowState.Maximized,
-                WindowState.Maximized => WindowState.Normal,
-                _ => WindowState.Normal
-            };
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e) {
-            Close();
-        }
-
     }
 }

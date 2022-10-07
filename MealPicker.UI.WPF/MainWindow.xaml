@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:components="clr-namespace:MealPicker.UI.WPF.Components"
+        xmlns:components="clr-namespace:MealPicker.UI.WPF.Components" 
+        xmlns:viewmodels="clr-namespace:MealPicker.UI.WPF.ViewModels"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Title="MealPicker" 
@@ -58,39 +60,55 @@
                 />
 
             <Button 
-                x:Name="MinimizeButton"
-                Click="MinimizeButton_Click"
                 WindowChrome.IsHitTestVisibleInChrome="True"
                 Content="—"
+                Command="{Binding MinimizeCommand}"
                 Grid.Column="2" 
                 />
             
             <Button 
-                x:Name="ResizeButton"
-                Click="ResizeButton_Click"
                 WindowChrome.IsHitTestVisibleInChrome="True"
                 Content="▢"
+                Command="{Binding ResizeCommand}"
                 Grid.Column="3"
                 />
             
             <Button 
-                x:Name="CloseButton"
-                Click="CloseButton_Click"
                 WindowChrome.IsHitTestVisibleInChrome="True"
                 Content="✖"
+                Command="{Binding CloseCommand}"
                 Grid.Column="4"
                 />
 
         </Grid>
-        
-        <!--Page Container-->
+
+        <DockPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            Background="{DynamicResource BG_200}"
+            >
+
+            <DockPanel.Resources>
+
+            </DockPanel.Resources>
+
+            <ContentControl 
+                Margin="15"
+                Content="{Binding CurrentViewModel}"/>
+
+        </DockPanel>
+
+
+        <!--todo - Page container is currently collapsed. Will be removed as soon as possible.-->
         <Frame 
             x:Name="PageContainer"
             NavigationUIVisibility="Hidden"
             Grid.Row="2" 
             Grid.Column="1" 
+            Visibility="Collapsed"
             Background="{DynamicResource BG_200}"/>
 
+        <!--Message Box-->
         <Grid 
             Grid.Row="2" 
             Grid.Column="1">
