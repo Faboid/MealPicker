@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:components="clr-namespace:MealPicker.UI.WPF.Components" 
         xmlns:viewmodels="clr-namespace:MealPicker.UI.WPF.ViewModels"
+        xmlns:views="clr-namespace:MealPicker.UI.WPF.Views"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         WindowStartupLocation="CenterScreen"
@@ -89,7 +90,15 @@
             >
 
             <DockPanel.Resources>
-
+                <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                    <views:LoginView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:SignupViewModel}">
+                    <views:SignupView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:RecipeGeneratorViewModel}">
+                    <views:RecipeGeneratorView/>
+                </DataTemplate>
             </DockPanel.Resources>
 
             <ContentControl 
