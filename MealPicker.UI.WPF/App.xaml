@@ -7,6 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="ColorThemes" Source="pack://application:,,,/Resources/ColorThemes.xaml"/>
                 <ResourceDictionary x:Name="DefaultButton" Source="pack://application:,,,/Styles/ButtonStyle.xaml"/>
+                <ResourceDictionary x:Name="DefaultLabel" Source="pack://application:,,,/Styles/LabelStyle.xaml"/>
                 <ResourceDictionary x:Name="DefaultDataGrid" Source="pack://application:,,,/Styles/DataGridStyle.xaml"/>
                 <ResourceDictionary x:Name="DefaultScrollbar" Source="pack://application:,,,/Styles/ScrollbarStyle.xaml"/>
                 <ResourceDictionary x:Name="DefaultTextBox" Source="pack://application:,,,/Styles/TextBoxStyle.xaml"/>
