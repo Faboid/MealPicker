@@ -3,10 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MealPicker.UI.WPF.Views"
+             xmlns:local="clr-namespace:MealPicker.UI.WPF.Views" 
+             xmlns:components="clr-namespace:MealPicker.UI.WPF.Components" 
+             xmlns:viewmodels="clr-namespace:MealPicker.UI.WPF.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:SignupViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+
+    <components:FormWrapper
+            ConfirmFormCommand="{Binding SignupCommand}"
+            ConfirmButtonText="Sign up"
+            >
+        <components:FormItem Text="{Binding ApiKey}" Label="Insert the API key from https://spoonacular.com/food-api:"/>
+        <components:FormItem Text="{Binding Password}" Label="Insert password:"/>
+        <components:FormItem Text="{Binding RepeatPassword}" Label="Repeat password:"/>
+    </components:FormWrapper>
+
 </UserControl>
