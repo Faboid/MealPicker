@@ -1,3 +1,4 @@
+using MealPicker.Core.Services;
 using MealPicker.UI.WPF.Services;
 using MealPicker.UI.WPF.Stores;
 using MealPicker.UI.WPF.ViewModels;
@@ -28,8 +29,10 @@ public static class AddViewModelsHostBuilderExtensions {
         return hostBuilder.ConfigureServices(services => {
 
             services.AddSingleton<Func<SignupViewModel>>(s => s.GetRequiredService<SignupViewModel>);
+            services.AddSingleton<Func<IConnectionService, RecipeGeneratorViewModel>>(s => new()); //todo - implement
 
             services.AddSingleton<NavigationService<SignupViewModel>>();
+            services.AddSingleton<NavigationService<RecipeGeneratorViewModel, IConnectionService>>();
 
             services.AddTransient<LoginViewModel>();
             services.AddTransient<SignupViewModel>();

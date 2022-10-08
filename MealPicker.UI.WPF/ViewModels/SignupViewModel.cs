@@ -1,4 +1,8 @@
+using MealPicker.Core.Files;
+using MealPicker.Core.Services;
 using MealPicker.UI.WPF.Commands;
+using MealPicker.UI.WPF.Services;
+using Microsoft.Extensions.Logging;
 using System.Windows.Input;
 
 namespace MealPicker.UI.WPF.ViewModels;
@@ -25,8 +29,10 @@ public class SignupViewModel : ViewModelBase {
 
 	public ICommand SignupCommand { get; }
 
-	public SignupViewModel() {
-		SignupCommand = new SignupCommand();
+	public SignupViewModel(INotificationService notificationService, IKeyHandlerFactory keyHandlerFactory, 
+							NavigationService<RecipeGeneratorViewModel, IConnectionService> navigationServiceToRecipeGeneratorVM, 
+							ILoggerFactory? loggerFactory = null) {
+		SignupCommand = new SignupCommand(this, notificationService, keyHandlerFactory, navigationServiceToRecipeGeneratorVM, loggerFactory);
 	}
 
 }
