@@ -12,16 +12,15 @@ public partial class FormItem : UserControl {
         set { SetValue(TextProperty, value); }
     }
 
-    // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof(FormItem), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register("Text", typeof(string), typeof(FormItem), 
+            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null, null, false, System.Windows.Data.UpdateSourceTrigger.PropertyChanged));
 
     public string Label {
         get { return (string)GetValue(LabelProperty); }
         set { SetValue(LabelProperty, value); }
     }
 
-    // Using a DependencyProperty as the backing store for Label.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty LabelProperty =
         DependencyProperty.Register("Label", typeof(string), typeof(FormItem), new PropertyMetadata(string.Empty));
 

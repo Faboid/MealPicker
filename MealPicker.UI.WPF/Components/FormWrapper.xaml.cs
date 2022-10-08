@@ -21,13 +21,21 @@ namespace MealPicker.UI.WPF.Components;
 [ContentProperty("Items")]
 public partial class FormWrapper : UserControl {
 
-    public ICommand ComfirmFormCommand {
-        get { return (ICommand)GetValue(ComfirmFormCommandProperty); }
-        set { SetValue(ComfirmFormCommandProperty, value); }
+    public string ConfirmButtonText {
+        get { return (string)GetValue(ConfirmButtonTextProperty); }
+        set { SetValue(ConfirmButtonTextProperty, value); }
     }
 
-    public static readonly DependencyProperty ComfirmFormCommandProperty =
-        DependencyProperty.Register("ComfirmFormCommand", typeof(ICommand), typeof(FormWrapper), new PropertyMetadata(null));
+    public static readonly DependencyProperty ConfirmButtonTextProperty =
+        DependencyProperty.Register(nameof(ConfirmButtonText), typeof(string), typeof(FormWrapper), new PropertyMetadata("Comfirm"));
+
+    public ICommand ConfirmFormCommand {
+        get { return (ICommand)GetValue(ConfirmFormCommandProperty); }
+        set { SetValue(ConfirmFormCommandProperty, value); }
+    }
+
+    public static readonly DependencyProperty ConfirmFormCommandProperty =
+        DependencyProperty.Register(nameof(ConfirmFormCommand), typeof(ICommand), typeof(FormWrapper), new PropertyMetadata(null));
 
     public IEnumerable<FormItem> FormItems {
         get { return (IEnumerable<FormItem>)GetValue(FormItemsProperty); }
