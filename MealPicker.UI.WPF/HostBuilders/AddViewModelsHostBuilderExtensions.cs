@@ -1,3 +1,4 @@
+using MealPicker.UI.WPF.Services;
 using MealPicker.UI.WPF.Stores;
 using MealPicker.UI.WPF.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,12 @@ public static class AddViewModelsHostBuilderExtensions {
     public static IHostBuilder AddViewModels(this IHostBuilder hostBuilder) {
         return hostBuilder.ConfigureServices(services => {
 
+            services.AddSingleton<Func<SignupViewModel>>(s => s.GetRequiredService<SignupViewModel>);
 
+            services.AddSingleton<NavigationService<SignupViewModel>>();
+
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<SignupViewModel>();
 
         });
     }

@@ -3,10 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MealPicker.UI.WPF.Views"
-             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:MealPicker.UI.WPF.Views" 
+             xmlns:components="clr-namespace:MealPicker.UI.WPF.Components" 
+             xmlns:viewmodels="clr-namespace:MealPicker.UI.WPF.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
-            
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Button
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            MinHeight="25"
+            MinWidth="50"
+            MaxWidth="120"
+            Content="Change API Key."
+            Command="{Binding ChangeAPIKeyCommand}"
+            />
+
+        <components:FormWrapper
+            Grid.Row="3"
+            ConfirmFormCommand="{Binding ConfirmCommand}"
+            ConfirmButtonText="Login"
+            >
+            <components:FormItem Text="{Binding Password}" Label="Insert password:"/>
+        </components:FormWrapper>
+
     </Grid>
+    
 </UserControl>

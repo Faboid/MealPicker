@@ -1,4 +1,6 @@
 ﻿using MealPicker.UI.WPF.HostBuilders;
+using MealPicker.UI.WPF.Stores;
+using MealPicker.UI.WPF.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
@@ -22,6 +24,9 @@ namespace MealPicker.UI.WPF {
 
         protected override void OnStartup(StartupEventArgs e) {
 
+            ViewModelBase startingVM;
+            startingVM = _host.Services.GetRequiredService<LoginViewModel>();
+            _host.Services.GetRequiredService<NavigationStore>().CurrentViewModel = startingVM;
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
 
