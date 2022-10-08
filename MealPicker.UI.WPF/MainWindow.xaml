@@ -83,6 +83,7 @@
 
         </Grid>
 
+        <!--Nested View-->
         <DockPanel
             Grid.Row="2"
             Grid.Column="1"
@@ -107,16 +108,6 @@
 
         </DockPanel>
 
-
-        <!--todo - Page container is currently collapsed. Will be removed as soon as possible.-->
-        <Frame 
-            x:Name="PageContainer"
-            NavigationUIVisibility="Hidden"
-            Grid.Row="2" 
-            Grid.Column="1" 
-            Visibility="Collapsed"
-            Background="{DynamicResource BG_200}"/>
-
         <!--Message Box-->
         <Grid 
             Grid.Row="2" 
@@ -133,9 +124,12 @@
                 <ColumnDefinition MinWidth="20" Width="1.01*" MaxWidth="50"/>
             </Grid.ColumnDefinitions>
 
+            <Grid.Resources>
+                <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            </Grid.Resources>
+
             <Border 
-                x:Name="MessageBox"
-                Visibility="Hidden"
+                Visibility="{Binding MessageBoxVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                 BorderBrush="Black"
                 Background="{DynamicResource BG_300}"
                 BorderThickness="3, 0, 3, 3"
@@ -157,7 +151,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
-                        x:Name="MessageBoxMessageTextBlock"
+                        Text="{Binding Message}"
                         Foreground="{DynamicResource FG_300}"
                         VerticalAlignment="Center"
                         TextWrapping="Wrap"
@@ -168,8 +162,7 @@
                         />
 
                     <Button 
-                        x:Name="MessageBoxOkButton"
-                        Click="MessageBoxOkButton_Click"
+                        Command="{Binding CloseMessageCommand}"
                         Content="Ok"
                         Margin="10"
                         Width="80"

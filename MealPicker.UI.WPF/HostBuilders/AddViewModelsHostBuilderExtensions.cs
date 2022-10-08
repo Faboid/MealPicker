@@ -14,7 +14,7 @@ public static class AddViewModelsHostBuilderExtensions {
     public static IHostBuilder AddMainWindow(this IHostBuilder hostBuilder) {
         return hostBuilder.ConfigureServices(services => {
 
-            services.AddTransient<Func<Window, MainViewModel>>((s) => (win) => new MainViewModel(s.GetRequiredService<NavigationStore>(), win));
+            services.AddTransient<Func<Window, MainViewModel>>((s) => (win) => new MainViewModel(s.GetRequiredService<NavigationStore>(), win, s.GetRequiredService<INotificationService>()));
 
             services.AddSingleton((s) => {
                 var window = new MainWindow();
