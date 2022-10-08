@@ -10,7 +10,7 @@ namespace MealPicker.Core.Files;
 /// <summary>
 /// Handles storage, encryption, and retrieval of the API key.
 /// </summary>
-public class KeyHandler : IDisposable {
+public class KeyHandler : IDisposable, IKeyHandler {
 
     /// <summary>
     /// Checks if the default file exists and has a string that resembles a key.
@@ -22,7 +22,7 @@ public class KeyHandler : IDisposable {
         if(!File.Exists(path)) {
             return false;
         }
-        
+
         if(string.IsNullOrWhiteSpace(File.ReadAllText(path))) {
             return false;
         }
@@ -61,7 +61,7 @@ public class KeyHandler : IDisposable {
     /// <param name="key">The API key that will be saved.</param>
     /// <returns>An option with either a <see cref="IConnectionService"/> if successful or a <see cref="KeyError"/> on failure.</returns>
     public async Task<Option<IConnectionService, KeyError>> TrySet(string key) {
-        var connection = await cnnServiceFactory.BuildConnectionService(new (key));
+        var connection = await cnnServiceFactory.BuildConnectionService(new(key));
         var output = connection.Match(
             some => Option.Some<IConnectionService, KeyError>(some),
             error => ConvertHttpStatusToKeyError(error.StatusCode),
@@ -100,7 +100,7 @@ public class KeyHandler : IDisposable {
                     () => KeyError.Undefined
                 );
 
-        } catch (CryptographicException) {
+        } catch(CryptographicException) {
             return KeyError.WrongPassword;
         }
     }
