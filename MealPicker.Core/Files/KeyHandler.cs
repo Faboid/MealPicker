@@ -1,6 +1,7 @@
 ﻿using MealPicker.Core.Services;
 using MealPicker.Encryption;
 using MealPicker.Utils;
+using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Security.Cryptography;
 
@@ -40,7 +41,7 @@ public class KeyHandler : IDisposable {
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="cryptoService"></param>
-    public KeyHandler(ILogger logger, ICryptoService cryptoService) : this(logger, cryptoService, PathBuilder.GetKeyPath) { }
+    public KeyHandler(ICryptoService cryptoService, ILoggerFactory? loggerFactory = null) : this(cryptoService, PathBuilder.GetKeyPath, loggerFactory) { }
 
     /// <summary>
     /// Initializes an instance of <see cref="KeyHandler"/> with a custom path.
@@ -48,10 +49,10 @@ public class KeyHandler : IDisposable {
     /// <param name="logger"></param>
     /// <param name="cryptoService"></param>
     /// <param name="customPath"></param>
-    internal KeyHandler(ILogger logger, ICryptoService cryptoService, string customPath) {
+    internal KeyHandler(ICryptoService cryptoService, string customPath, ILoggerFactory? loggerFactory = null) {
         this.cryptoService = cryptoService;
         path = customPath;
-        cnnServiceFactory = new(logger);
+        cnnServiceFactory = new(loggerFactory);
     }
 
     /// <summary>

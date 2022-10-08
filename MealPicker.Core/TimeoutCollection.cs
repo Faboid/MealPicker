@@ -1,4 +1,5 @@
 ﻿using MealPicker.Utils;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 
 namespace MealPicker.Core; 
@@ -15,14 +16,14 @@ internal class TimeoutCollection<T> : IDisposable {
     /// <param name="logger"></param>
     /// <param name="recipes"></param>
     /// <param name="timeout"></param>
-    public TimeoutCollection(ILogger logger, IList<T> recipes, TimeSpan timeout) {
-        this.timeout = timeout;
-        this.logger = logger;
+    public TimeoutCollection(IList<T> recipes, TimeSpan timeout, ILoggerFactory? loggerFactory = null) {
+        _timeout = timeout;
+        _logger = loggerFactory?.CreateLogger<TimeoutCollection<T>>();
         Renew(recipes);
     }
 
-    private readonly ILogger logger;
-    readonly TimeSpan timeout;
+    private readonly ILogger<TimeoutCollection<T>>? _logger;
+    readonly TimeSpan _timeout;
     private Timer timer;
     private IList<T> recipes;
 
@@ -30,7 +31,7 @@ internal class TimeoutCollection<T> : IDisposable {
 
     private void Reset(object? unused) {
         recipes.Clear();
-        logger.LogInfo("The TimeoutCollection's timer has expired and the recipes have been cleared.");
+        _logger?.LogInformation("The TimeoutCollection's timer has expired and the recipes have been cleared.");
     }
 
     /// <summary>
@@ -40,9 +41,9 @@ internal class TimeoutCollection<T> : IDisposable {
     [MemberNotNull(nameof(timer), nameof(recipes))]
     public void Renew(IList<T> recipes) {
         this.recipes?.Clear();
-        timer?.Change(timeout, TimeSpan.Zero);
+        timer?.Change(_timeout, TimeSpan.Zero);
 
-        timer ??= new Timer(Reset, null, timeout, TimeSpan.Zero);
+        timer ??= new Timer(Reset, null, _timeout, TimeSpan.Zero);
         this.recipes = recipes;
     }
 

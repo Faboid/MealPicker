@@ -19,7 +19,6 @@ namespace MealPicker.UI.WPF {
         public MainWindow() {
             InitializeComponent();
 
-            ThemesSelector.Logger = logger;
             KeyHandlerPage page = new(logger);
             page.OnSendMessage += Page_OnSendMessage;
             page.CloseAndReturn += OnConnectionObtained;
@@ -34,7 +33,7 @@ namespace MealPicker.UI.WPF {
             e.handlerPage.OnSendMessage -= Page_OnSendMessage;
             e.handlerPage.CloseAndReturn -= OnConnectionObtained;
 
-            RecipesNavigator nav = new(logger, e.cnnService);
+            RecipesNavigator nav = new(e.cnnService);
             Dispatcher.Invoke(() => {
                 RecipePage page = new(nav);
                 page.OnSendMessage += Page_OnSendMessage;

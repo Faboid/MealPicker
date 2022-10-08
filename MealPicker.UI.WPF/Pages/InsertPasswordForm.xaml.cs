@@ -43,7 +43,7 @@ public partial class InsertPasswordForm : Page, IForm {
 
     public async Task<Option<IConnectionService>> ConfirmAsync() {
         CryptoService crypto = new(PasswordTextBox.Text.ToCharArray());
-        using KeyHandler keyHandler = new(logger, crypto);
+        using KeyHandler keyHandler = new(crypto);
         var result = await keyHandler.TryGet();
 
         return result.Match(

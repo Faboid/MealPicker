@@ -38,7 +38,7 @@ namespace MealPicker.UI.WPF.Pages {
             }
 
             CryptoService cryptoService = new(PasswordTextBox.Text.ToCharArray());
-            using KeyHandler handler = new(logger, cryptoService);
+            using KeyHandler handler = new(cryptoService);
             var result = await handler.TrySet(APIKeyTextBox.Text);
 
             return result
