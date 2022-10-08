@@ -34,6 +34,7 @@ public class LoginCommand : AsyncCommandBase {
         var conn = result.Or(default!);
         if(conn != null) {
             _navigationServiceToRecipeGeneratorVM.Navigate(conn, true);
+            return;
         }
 
         _logger?.LogInformation("There has been an error logging in: {ErrorCode}", result.OrError(0));
