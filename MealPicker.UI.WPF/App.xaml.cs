@@ -26,12 +26,13 @@ namespace MealPicker.UI.WPF {
 
         protected override void OnStartup(StartupEventArgs e) {
 
+            _host.Start();
             ViewModelBase startingVM;
             startingVM = _host.Services.GetRequiredService<LoginViewModel>();
             _host.Services.GetRequiredService<NavigationStore>().CurrentViewModel = startingVM;
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
-
+            
             base.OnStartup(e);
         }
     }

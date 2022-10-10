@@ -1,7 +1,6 @@
-using MealPicker.Core.Files;
-using MealPicker.Core.Services;
 using MealPicker.UI.WPF.Commands;
 using MealPicker.UI.WPF.Services;
+using MealPicker.UI.WPF.Stores;
 using Microsoft.Extensions.Logging;
 using System.Windows.Input;
 
@@ -19,10 +18,10 @@ public class LoginViewModel : ViewModelBase {
     public ICommand ConfirmCommand { get; }
 
 	public LoginViewModel(NavigationService<SignupViewModel> navigateToSignupViewModel, 
-						IKeyHandlerFactory keyHandlerFactory, INotificationService notificationService, 
-						NavigationService<RecipeGeneratorViewModel, IConnectionService> navigationServiceToRecipeGeneratorVM, 
+						CryptoContainerStore cryptoContainerStore, INotificationService notificationService, 
+						NavigationService<RecipeGeneratorViewModel> navigationServiceToRecipeGeneratorVM, 
 						ILoggerFactory? loggerFactory = null) {
-		ConfirmCommand = new LoginCommand(this, keyHandlerFactory, notificationService, navigationServiceToRecipeGeneratorVM, loggerFactory);
+		ConfirmCommand = new LoginCommand(this, cryptoContainerStore, notificationService, navigationServiceToRecipeGeneratorVM, loggerFactory);
 		ChangeAPIKeyCommand = new NavigateCommand<SignupViewModel>(true, navigateToSignupViewModel);
 	}
 

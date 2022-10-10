@@ -29,13 +29,13 @@ public static class AddViewModelsHostBuilderExtensions {
         return hostBuilder.ConfigureServices(services => {
 
             services.AddSingleton<Func<SignupViewModel>>(s => s.GetRequiredService<SignupViewModel>);
-            services.AddSingleton<Func<IConnectionService, RecipeGeneratorViewModel>>(s => new()); //todo - implement
-
+            services.AddSingleton<Func<RecipeGeneratorViewModel>>(s => s.GetRequiredService<RecipeGeneratorViewModel>); //todo - implement
             services.AddSingleton<NavigationService<SignupViewModel>>();
-            services.AddSingleton<NavigationService<RecipeGeneratorViewModel, IConnectionService>>();
+            services.AddSingleton<NavigationService<RecipeGeneratorViewModel>>();
 
             services.AddTransient<LoginViewModel>();
             services.AddTransient<SignupViewModel>();
+            services.AddTransient<RecipeGeneratorViewModel>();
 
         });
     }
