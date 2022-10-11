@@ -98,7 +98,7 @@
                     <views:SignupView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:RecipeGeneratorViewModel}">
-                    <views:RecipeGeneratorView/>
+                    <views:RecipeGeneratorView LoadedCommand="{Binding LoadedCommand}"/>
                 </DataTemplate>
             </DockPanel.Resources>
 
