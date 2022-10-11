@@ -1,9 +1,20 @@
+using MealPicker.UI.WPF.Commands;
 using MealPicker.UI.WPF.Models;
+using MealPicker.Utils;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+
 namespace MealPicker.UI.WPF.ViewModels;
 
 public class RecipeViewModel : ViewModelBase {
+
+	private readonly ILinkOpener _linkOpener;
+	public ICommand OpenLinkCommand { get; }
+	public RecipeViewModel(ILinkOpener linkOpener) {
+		_linkOpener = linkOpener;
+		OpenLinkCommand = new RelayCommand(() => _linkOpener.Open(SourceUrl));
+	}
 
 	private RecipeModel? _recipe;
 	public RecipeModel? Recipe {

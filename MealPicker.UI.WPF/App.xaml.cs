@@ -16,6 +16,7 @@ namespace MealPicker.UI.WPF {
         public App() {
             _host = Host
                 .CreateDefaultBuilder()
+                .AddUtilities()
                 .AddUIComponents()
                 .AddKeyStoragePipeline()
                 .AddStores()

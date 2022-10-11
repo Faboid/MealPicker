@@ -146,6 +146,7 @@
                 Grid.Column="3" 
                 VerticalContentAlignment="Center"
                 HorizontalAlignment="Left"
+                Command="{Binding OpenLinkCommand}"
                 />
 
         </Grid>
