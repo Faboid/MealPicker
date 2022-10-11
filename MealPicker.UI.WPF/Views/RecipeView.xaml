@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MealPicker.UI.WPF.Views"
+             xmlns:local="clr-namespace:MealPicker.UI.WPF.Views" 
+             xmlns:viewmodels="clr-namespace:MealPicker.UI.WPF.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:RecipeViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Name="RecipeViewKey">
+             d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="{DynamicResource BG_200}">
 
@@ -27,10 +28,9 @@
         </Grid.RowDefinitions>
 
         <TextBlock
-            x:Name="TitleRecipe_TextBlock"
             Background="{DynamicResource BG_300}"
             Foreground="{DynamicResource FG_300}"
-            Text="{Binding Recipe.Title, ElementName=RecipeViewKey}"
+            Text="{Binding Recipe.Title}"
             FontSize="20"
             Margin="0, 0, 0, 10"
             Grid.Row="0"
@@ -41,8 +41,7 @@
             />
 
         <Image 
-            x:Name="RecipeImage"
-            Source="{Binding Recipe.Image, ElementName=RecipeViewKey}"
+            Source="{Binding Recipe.Image}"
             Grid.Row="1" 
             Grid.Column="1"
             />
@@ -68,8 +67,7 @@
                 />
 
             <TextBlock
-                Name="ReadyInMinutesTextBlock"
-                Text="{Binding Recipe.ReadyInMinutes, ElementName=RecipeViewKey}"
+                Text="{Binding Recipe.ReadyInMinutes}"
                 Foreground="{DynamicResource FG_300}"
                 Grid.Row="0"
                 Grid.Column="1"
@@ -82,18 +80,16 @@
                 />
 
             <TextBlock
-                x:Name="ServingsTextBlock"
-                Text="{Binding Recipe.Servings, ElementName=RecipeViewKey}"
+                Text="{Binding Recipe.Servings}"
                 Foreground="{DynamicResource FG_300}"
                 Grid.Row="1"
                 Grid.Column="1"
                 />
 
             <DataGrid 
-                x:Name="IngredientsListDataGrid"
                 Grid.Row="3"
                 Grid.ColumnSpan="2"
-                ItemsSource="{Binding Recipe.ExtendedIngredients, ElementName=RecipeViewKey}"
+                ItemsSource="{Binding Recipe.ExtendedIngredients}"
                 >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
@@ -105,8 +101,7 @@
         </Grid>
 
         <TextBox 
-            x:Name="SummaryTextBox"
-            Text="{Binding Recipe.Summary, ElementName=RecipeViewKey}"
+            Text="{Binding Recipe.Summary}"
             TextWrapping="Wrap"
             IsReadOnly="True"
             BorderThickness="0"
@@ -137,8 +132,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock 
-                x:Name="RecipeAuthorNameTextBlock"
-                Text="{Binding Recipe.SourceName, ElementName=RecipeViewKey}" 
+                Text="{Binding Recipe.SourceName}" 
                 Foreground="{DynamicResource FG_300}"
                 Grid.Row="1" 
                 Grid.Column="0" 
@@ -146,14 +140,13 @@
                 />
             
             <Button 
-                x:Name="RecipeLinkButton"
-                Click="RecipeLinkButton_Click"
-                Content="{Binding Recipe.SourceUrl, ElementName=RecipeViewKey}"
+                Content="{Binding Recipe.SourceUrl}"
                 Padding="10, 0"
                 Grid.Row="1" 
                 Grid.Column="3" 
                 VerticalContentAlignment="Center"
                 HorizontalAlignment="Left"
+                Command="{Binding OpenLinkCommand}"
                 />
 
         </Grid>

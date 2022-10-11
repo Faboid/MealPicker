@@ -3,6 +3,7 @@ using MealPicker.Core.Models;
 using MealPicker.Core.Services;
 using MealPicker.Utils;
 using MealPicker.Utils.Options;
+using Microsoft.Extensions.Logging;
 
 namespace MealPicker.Core;
 
@@ -16,18 +17,18 @@ public class RecipesNavigator {
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="connection"></param>
-    public RecipesNavigator(ILogger logger, IConnectionService connection) {
-        this.connection = connection;
-        this.logger = logger;
+    public RecipesNavigator(IConnectionService connection, ILoggerFactory? loggerFactory = null) {
+        _connection = connection;
+        logger = loggerFactory?.CreateLogger<RecipesNavigator>();
 
         //to respects the Spoonacular API's terms, all cached data needs to be deleted no later than one hour after getting it.
-        containerRecipes = new(logger, new List<RecipeModel>(), TimeSpan.FromHours(1));
+        containerRecipes = new(new List<RecipeModel>(), TimeSpan.FromHours(1), loggerFactory);
     }
 
-    private readonly ILogger logger;
+    private readonly ILogger<RecipesNavigator>? logger;
     private readonly Locker locker = new(1);
     private readonly TimeoutCollection<RecipeModel> containerRecipes;
-    private readonly IConnectionService connection;
+    private readonly IConnectionService _connection;
 
     /// <summary>
     /// Requests the next recipe asynchronously.
@@ -47,14 +48,14 @@ public class RecipesNavigator {
 
         while(containerRecipes.Count == 0) {
                     
-            var optionRecipes = await connection.GetRandomRecipesAsync(100);
+            var optionRecipes = await _connection.GetRandomRecipesAsync(100);
 
             var result = optionRecipes.Result();
 
-            if(result == OptionResult.Error || result == OptionResult.None) {
+            if(result is OptionResult.Error or OptionResult.None) {
                 var err = optionRecipes.OrError(new(System.Net.HttpStatusCode.BadRequest, "Unknown."));
                 string msg = $"The call to get random recipes has failed, code {err.StatusCode}. Reason: {err.ReasonPhrase}";
-                logger.LogError(msg);
+                logger?.LogError("The call to get random recipes has failed, code {StatusCode}. Reason: {Reason}", err.StatusCode, err.ReasonPhrase);
                 return msg;
             }
 

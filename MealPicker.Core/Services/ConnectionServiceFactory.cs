@@ -1,5 +1,6 @@
 ﻿using MealPicker.Core.Models;
 using MealPicker.Utils;
+using Microsoft.Extensions.Logging;
 using System.Net.Http.Headers;
 
 namespace MealPicker.Core.Services {
@@ -13,7 +14,7 @@ namespace MealPicker.Core.Services {
         /// Creates an instance of <see cref="ConnectionServiceFactory"/> with the given <see cref="ILogger"/>.
         /// </summary>
         /// <param name="logger"></param>
-        public ConnectionServiceFactory(ILogger logger) {
+        public ConnectionServiceFactory(ILoggerFactory? logger = null) {
             HttpClient client = new() {
                 BaseAddress = new Uri("https://api.spoonacular.com/recipes/")
             };
@@ -22,7 +23,7 @@ namespace MealPicker.Core.Services {
             this.logger = logger;
         }
 
-        private readonly ILogger logger;
+        private readonly ILoggerFactory? logger;
         private readonly Requester client;
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace MealPicker.Core.Services {
         public async Task<Option<IConnectionService, Requester.FailResult>> BuildConnectionService(API_Key key) {
             var query = key.GetQueryTestKey();
             var result = await client.CallAsync<ListRecipesResult>(query).ConfigureAwait(false);
-            return result.Bind<IConnectionService>(x => new ConnectionService(logger, client, key));
+            return result.Bind<IConnectionService>(x => new ConnectionService(client, key, logger));
         }
 
     }

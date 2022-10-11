@@ -1,6 +1,7 @@
 ﻿using MealPicker.Core.Services;
 using MealPicker.Encryption;
 using MealPicker.Utils;
+using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Security.Cryptography;
 
@@ -9,7 +10,7 @@ namespace MealPicker.Core.Files;
 /// <summary>
 /// Handles storage, encryption, and retrieval of the API key.
 /// </summary>
-public class KeyHandler : IDisposable {
+public class KeyHandler : IDisposable, IKeyHandler {
 
     /// <summary>
     /// Checks if the default file exists and has a string that resembles a key.
@@ -21,7 +22,7 @@ public class KeyHandler : IDisposable {
         if(!File.Exists(path)) {
             return false;
         }
-        
+
         if(string.IsNullOrWhiteSpace(File.ReadAllText(path))) {
             return false;
         }
@@ -40,7 +41,7 @@ public class KeyHandler : IDisposable {
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="cryptoService"></param>
-    public KeyHandler(ILogger logger, ICryptoService cryptoService) : this(logger, cryptoService, PathBuilder.GetKeyPath) { }
+    public KeyHandler(ICryptoService cryptoService, ILoggerFactory? loggerFactory = null) : this(cryptoService, PathBuilder.GetKeyPath, loggerFactory) { }
 
     /// <summary>
     /// Initializes an instance of <see cref="KeyHandler"/> with a custom path.
@@ -48,10 +49,10 @@ public class KeyHandler : IDisposable {
     /// <param name="logger"></param>
     /// <param name="cryptoService"></param>
     /// <param name="customPath"></param>
-    internal KeyHandler(ILogger logger, ICryptoService cryptoService, string customPath) {
+    internal KeyHandler(ICryptoService cryptoService, string customPath, ILoggerFactory? loggerFactory = null) {
         this.cryptoService = cryptoService;
         path = customPath;
-        cnnServiceFactory = new(logger);
+        cnnServiceFactory = new(loggerFactory);
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public class KeyHandler : IDisposable {
     /// <param name="key">The API key that will be saved.</param>
     /// <returns>An option with either a <see cref="IConnectionService"/> if successful or a <see cref="KeyError"/> on failure.</returns>
     public async Task<Option<IConnectionService, KeyError>> TrySet(string key) {
-        var connection = await cnnServiceFactory.BuildConnectionService(new (key));
+        var connection = await cnnServiceFactory.BuildConnectionService(new(key));
         var output = connection.Match(
             some => Option.Some<IConnectionService, KeyError>(some),
             error => ConvertHttpStatusToKeyError(error.StatusCode),
@@ -99,7 +100,7 @@ public class KeyHandler : IDisposable {
                     () => KeyError.Undefined
                 );
 
-        } catch (CryptographicException) {
+        } catch(CryptographicException) {
             return KeyError.WrongPassword;
         }
     }
