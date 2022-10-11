@@ -41,24 +41,24 @@ public partial class RecipePage : Page {
     /// </summary>
     /// <returns></returns>
     private async Task SetNextRecipe() {
-        try {
-            RandomButton.IsEnabled = false;
+        //try {
+        //    RandomButton.IsEnabled = false;
 
-            var option = await navigator.NextAsync();
-            var result = option.Result();
+        //    var option = await navigator.NextAsync();
+        //    var result = option.Result();
 
-            if(result == Utils.Options.OptionResult.Some) {
-                RecipeView.Recipe = new(option.Or(new()));
-            }
+        //    if(result == Utils.Options.OptionResult.Some) {
+        //        RecipeView.Recipe = new(option.Or(new()));
+        //    }
 
-            if(result == Utils.Options.OptionResult.Error || result == Utils.Options.OptionResult.None) {
-                OnSendMessage?.Invoke(this, option.OrError("The call to get random recipes has failed for an unknown reason."));
-            }
+        //    if(result == Utils.Options.OptionResult.Error || result == Utils.Options.OptionResult.None) {
+        //        OnSendMessage?.Invoke(this, option.OrError("The call to get random recipes has failed for an unknown reason."));
+        //    }
 
-        } finally {
+        //} finally {
 
-            RandomButton.IsEnabled = true;
-        }
+        //    RandomButton.IsEnabled = true;
+        //}
     }
 
 }

@@ -1,25 +1,52 @@
-using MealPicker.Core.Models;
+using MealPicker.UI.WPF.Models;
 using System.Collections.Generic;
-using System.Linq;
-
+using System.Collections.ObjectModel;
 namespace MealPicker.UI.WPF.ViewModels;
 
 public class RecipeViewModel : ViewModelBase {
 
-	private readonly RecipeModel _recipe;
+	private RecipeModel? _recipe;
+	public RecipeModel? Recipe {
+		get => _recipe;
+		set {
+            if(value == null) {
+                return;
+            }
 
-	public RecipeViewModel(RecipeModel recipe) {
-		_recipe = recipe;
+            SetAndRaise(nameof(Recipe), ref _recipe, value);
+			NotifyAll(value);
+		}
 	}
 
-	public string Title => _recipe.Title;
-	public string Image => _recipe.Image;
-	public int ReadyInMinutes => _recipe.ReadyInMinutes;
-	public int Servings => _recipe.Servings;
-	public IEnumerable<IngredientViewModel> ExtendedIngredients => _recipe.ExtendedIngredients.Select(x => new IngredientViewModel(x));
+	private readonly ObservableCollection<IngredientViewModel> _ingredients = new();
 
-	public string Summary => _recipe.Summary;
-	public string SourceName => _recipe.SourceName;
-	public string SourceUrl => _recipe.SourceUrl;
+	public string Title => _recipe?.Title ?? "Hello!";
+	public string Image => _recipe?.Image ?? "";
+	public int ReadyInMinutes => _recipe?.ReadyInMinutes ?? 0;
+	public int Servings => _recipe?.Servings ?? 0;
+	public IEnumerable<IngredientViewModel> ExtendedIngredients => _ingredients;
+	public string Summary => _recipe?.Summary ?? "";
+	public string SourceName => _recipe?.SourceName	?? "";
+	public string SourceUrl => _recipe?.SourceUrl ?? "";
+
+	private void NotifyAll(RecipeModel recipe) {
+		OnPropertyChanged(nameof(Title));
+		OnPropertyChanged(nameof(Image));
+		OnPropertyChanged(nameof(ReadyInMinutes));
+		OnPropertyChanged(nameof(Servings));
+		OnPropertyChanged(nameof(ExtendedIngredients));
+		OnPropertyChanged(nameof(Summary));
+		OnPropertyChanged(nameof(SourceName));
+		OnPropertyChanged(nameof(SourceUrl));
+		LoadIngredients(recipe.ExtendedIngredients);
+	}
+
+	private void LoadIngredients(IEnumerable<IngredientModel> ingredients) {
+		_ingredients.Clear();
+		foreach(var ingredient in ingredients) {
+			_ingredients.Add(new(ingredient));
+		}
+		OnPropertyChanged(nameof(ReadyInMinutes));
+	}
 
 }

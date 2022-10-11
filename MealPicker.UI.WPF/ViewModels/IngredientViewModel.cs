@@ -1,4 +1,4 @@
-﻿using MealPicker.Core.Models;
+﻿using MealPicker.UI.WPF.Models;
 
 namespace MealPicker.UI.WPF.ViewModels;
 
@@ -11,7 +11,7 @@ public class IngredientViewModel : ViewModelBase {
 	}
 
 	public string Name => _ingredient.Name;
-	public float Amount => _ingredient.Amount;
+	public double Amount => _ingredient.Amount;
 	public string Unit => _ingredient.Unit;
 
 }
